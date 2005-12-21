@@ -47,7 +47,7 @@ namespace Straight8.Framework
 			_width = Toolkit.utGetWindowWidth(_window);
 			_height = Toolkit.utGetWindowHeight(_window);
 
-			_masterWindowList.Add(_window, this);
+			_masterWindowList[_window] = this;
 		}
 
 		/* Attaches a rendering context to an existing window */
@@ -136,6 +136,7 @@ namespace Straight8.Framework
 		#endregion
 
 		#region Master Window List
+		
 		/* This associates the Toolkit window handle with the .NET 
 		 * GraphicsWindow object. I use it to route messages from
 		 * the event loop to the appropriate window object */

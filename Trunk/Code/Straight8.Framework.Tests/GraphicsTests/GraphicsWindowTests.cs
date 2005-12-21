@@ -23,21 +23,17 @@ namespace Straight8.Framework.Tests.GraphicsTests
 	[TestFixture]
 	public class GraphicsWindowTests
 	{
-		private GraphicsWindow _wnd;
-
 		#region Setup and Teardown
 
 		[SetUp]
 		public void Test_Setup()
 		{
 			Platform.Connect();
-			_wnd = new GraphicsWindow("", 128, 128);
 		}
 
 		[TearDown]
 		public void Test_Teardown()
 		{
-			_wnd.Dispose();
 			Platform.Disconnect();
 		}
 		
@@ -48,14 +44,16 @@ namespace Straight8.Framework.Tests.GraphicsTests
 		[Test]
 		public void CanCreateWindow()
 		{
-			Assert.IsNotNull(_wnd);
+			GraphicsWindow wnd = new GraphicsWindow("", 128, 128);			
+			Assert.IsNotNull(wnd);
 		}
 
 		[Test]
 		public void CanAttachToExistingWindow()
 		{
-			IntPtr wnd = Toolkit.utCreateWindow("", 10, 10);
-			using (GraphicsWindow gfx = new GraphicsWindow(Toolkit.utGetWindowHandle(wnd)))
+			IntPtr wnd = Toolkit.utCreateWindow("", 16, 16);
+			IntPtr hwnd = Toolkit.utGetWindowHandle(wnd);
+			using (GraphicsWindow gfx = new GraphicsWindow(hwnd))
 			{
 				Assert.IsNotNull(gfx);
 			}
@@ -69,21 +67,26 @@ namespace Straight8.Framework.Tests.GraphicsTests
 		[Test]
 		public void CanResizeWindow()
 		{
-			_wnd.ResizeTo(200, 100);
-			Assert.AreEqual(200, _wnd.Width);
-			Assert.AreEqual(100, _wnd.Height);
+			GraphicsWindow wnd = new GraphicsWindow("", 128, 128);
+			wnd.ResizeTo(200, 100);
+			Assert.AreEqual(200, wnd.Width);
+			Assert.AreEqual(100, wnd.Height);
 		}
 
-
 		[Test]
-		public void GetRealSizeOnCreate()
+		public void GraphicsResizeWithWindow()
 		{
-			/* Try to create a too-small window and make sure I pick up 
-			 * larger size actually provided by the OS */
-			using (GraphicsWindow gfx = new GraphicsWindow("", 1, 1))
-			{
-				Assert.IsTrue(gfx.Width > 1, "GraphicsWindow is not getting post-create size");
-			}
+			GraphicsWindow wnd = new GraphicsWindow("", 128, 128);
+			wnd.ResizeTo(256, 128);
+
+			Graphics.BeginFrame();
+			Graphics.Clear(1.0f, 1.0f, 1.0f, 1.0f);
+			Graphics.EndFrame();
+			Graphics.Swap();
+
+			Bitmap image = wnd.GrabScreen();
+			Color color = image.GetPixel(250, 1);
+			Assert.AreEqual(Color.FromArgb(0xff, 0xff, 0xff, 0xff), color);
 		}
 
 		#endregion
@@ -93,28 +96,15 @@ namespace Straight8.Framework.Tests.GraphicsTests
 		[Test]
 		public void CanClearAndSwap()
 		{
+			GraphicsWindow wnd = new GraphicsWindow("", 128, 128);
+			
 			Graphics.BeginFrame();
 			Graphics.Clear(1.0f, 1.0f, 1.0f, 1.0f);
 			Graphics.EndFrame();
 			Graphics.Swap();
 
-			Bitmap image = _wnd.GrabScreen();
+			Bitmap image = wnd.GrabScreen();
 			Color color = image.GetPixel(1, 1);
-			Assert.AreEqual(Color.FromArgb(0xff, 0xff, 0xff, 0xff), color);
-		}
-
-		[Test]
-		public void GraphicsResizeWithWindow()
-		{
-			_wnd.ResizeTo(256, 128);
-
-			Graphics.BeginFrame();
-			Graphics.Clear(1.0f, 1.0f, 1.0f, 1.0f);
-			Graphics.EndFrame();
-			Graphics.Swap();
-
-			Bitmap image = _wnd.GrabScreen();
-			Color color = image.GetPixel(250, 1);
 			Assert.AreEqual(Color.FromArgb(0xff, 0xff, 0xff, 0xff), color);
 		}
 
