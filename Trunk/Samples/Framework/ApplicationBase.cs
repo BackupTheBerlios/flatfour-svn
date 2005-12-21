@@ -67,10 +67,10 @@ namespace Samples.Framework
 			{
 				app.Dispose();
 				Platform.Disconnect();
-				Sim8.GameGuts.Toolkit.utShowMemoryReport();
 			}
 			finally
 			{
+				Sim8.GameGuts.Toolkit.utShowMemoryReport();
 				CloseLogFile();
 			}
 		}

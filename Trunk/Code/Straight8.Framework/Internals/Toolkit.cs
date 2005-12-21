@@ -23,6 +23,7 @@ namespace Sim8.GameGuts
 	public class Toolkit
 	{
 		#region Initialization Interface
+		
 		[DllImport("GameGuts")] public static extern 
 		bool utInitialize();
 
