@@ -41,7 +41,6 @@ namespace Samples.Framework
 			 * make it easier to debug for now */
 			try
 			{
-				Sim8.GameGuts.Toolkit.utEnableMemoryDebugging();
 				Platform.Connect();
 				app.Setup();
 
@@ -70,7 +69,6 @@ namespace Samples.Framework
 			}
 			finally
 			{
-				Sim8.GameGuts.Toolkit.utShowMemoryReport();
 				CloseLogFile();
 			}
 		}

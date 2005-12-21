@@ -111,7 +111,8 @@ namespace Samples.Framework
 
 		public override void Dispose()
 		{
-			_window.Dispose();
+			if (_window != null)
+				_window.Dispose();
 		}
 
 
