@@ -1,0 +1,8 @@
+user
+anonymous
+jason379@users.sourceforge.net
+cd incoming
+bin
+prompt
+mput FlatFour-*.zip
+quit

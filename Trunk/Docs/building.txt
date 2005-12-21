@@ -1,0 +1,4 @@
+
+## Unit Testing ##
+
+I am doing my best to work in a Test-First fashion (link). An NUnit configuration file is located at FlatFour/Straight8.Framework.nunit. Whenever you make changes to the Framework you are highly encouraged to run the unit tests. Code submissions do not require unit tests but again they are highly encouraged. Code submissions that do not include tests may be held up while tests are written. I am trying very hard to develop a trustworthy codebase.

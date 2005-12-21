@@ -1,0 +1,15 @@
+* Unit tests for SetMatrix() and SetTexture()
+
+* What kind of buffer options are there (static, dynamic, what else)? Have
+  a look at that too.
+
+* Popup window when exceptions are caught (sample base class)
+
+* Trace log should use \n\r on windows so it can be read in Notepad. Engine
+  messages are okay, but messages from the Toolkit are \n only.
+
+* Write message to log when closing window, etc.
+
+* Move .nunit file to tests directory if possible
+
+  

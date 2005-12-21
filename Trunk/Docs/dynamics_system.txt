@@ -1,0 +1,57 @@
+Every dynamics engine out there includes an integrated collision detection library. Take advantage of this to simplify my code. Merge physics and collision into the same module.
+
+Support debug visualizations from the dynamics engine, refer to Novodex API. Allow creation and viewing of scenes with no art content.
+
+An "actor" is an object in the scene. There are three kinds of actors:
+
+  * Static: the object will never move (has no Pose)
+  * Dynamic: the object is physically modeled (has RBody)
+  * Kinematic: the object moves under control of sim, does not react to collisions,
+    pushes dynamic actors out of the way.
+
+Represent the world as a "static actor"; in ODE terms a Geom with no Body. A body can be switched back and forth between dynamic and kinematic, but static objects can never change (why? Because the coordinates are baked into the collision geometry?)
+
+Allow the physics to run asynchronously. See Novodex Quick Start guide for API example.
+
+Novodex seems to use *.bin files for meshes. Works for me; try to find the format. Physics shapes (a table is a box for the top and four boxes for the legs) are saved to a *.psx file. Also mentions *.pxl files, which I guess would mean "physics level"?
+
+Shapes are "pushed" into an ActorDesc to build composite objects. The ActorDesc also contains a BodyDesc (presumably optional). Then an actor is build from the description with gScene->createActor(actorDesc). Note the physics scene object and the factory function. Actor creation automatically calculates the center of mass and inertia tensor.
+
+Materials define the surface properties of the shape and are used in collision resolution. I will probably want to assign material indices. Contact parameters will be based on pairs of indices. If a pairing is not defined a default can be used. Or I can defined parameters for each material type and provide an automatic mapping which can be overridden for selected pairs. That sounds better. Novodex seems to support this as "material combine modes".
+
+
+If the simulation object sits above this layer it can leverage the physics scene. So to the host application, the simulation contains all of the objects, but internally this responsibility can be handed off to the physics layer (while the graphics layer can manage its own objects as well).
+
+It appears that the Novodex scene automatically applies the contact constraints. That's good, right? Perhaps I could send the contact information _after_ the physics step is completed. Then the forces applied could be included in the message. This would prevent the actor from ignoring the contact though as forces would already have been applied. Might not be an issue. Ah, but actor could get the intersection result and respond at that point. If it allows a response, it would then get a physicsHit with the forces from the contact.
+
+"Triggers" are volumes that fire events when an actor enters or leaves. Very handy. I can determine if an actor is entering or leaving by comparing its velocity vector with the contact normal.
+
+Raycasts are used as you'd expect.
+
+It looks like the scene has a "contact report" which collects contacts for the entire scene? It says that _you_ have to add the contact pair, to the contact report? Well, maybe not...maybe you just register pairs that you have an interest in and then you are notified when they touch (start_touch, touch, and end_touch are defined).
+
+Does Novodex support returning forces from contacts?
+
+Where does the dynamics system abstraction occur? It would seem like it must be in G2, which would allow me (or force me, depending) to implement the dynamics scene and contact handling in C++, which might be easier (or harder). ACTUALLY...
+
+...considering that Novodex does not support double-precision math, and the fact that abstraction is likely to be a huge pain in the ass, perhaps I should NOT support it and just stick with ODE.
+
+
+I think the debug renderer should describe what is rendering (force, shape, axes, etc.) so that different colors can be used. Then it should list separate collections of points, lines, and triangles. From the simulation's point of view, it would be immensely useful to be able to pause and then step forward by a fixed time increment, perhaps set in a debug console or configuration file.
+
+Actor groups (called "collision flags" in ODE) can be used to categorize shapes. A particle group can prevent particles from colliding with each other.
+
+Notification for contact feedback has to be requested, either by specifying a particular pair of objects, or by using groups. Would be nice if I could limit message sends to objects with interest. 
+
+Allow flag on capsule as "swept shape". Material information can flag a "spring contact" with spring and damper strengths and a natural length.
+
+"Core dump" writes out the entire simulation state to disk. Useful for getting debugging reports from users.
+
+---------
+
+### Integration with Prototype ###
+
+I'm working toward merging collision and physics and hiding it all behind a Simulation object. In this system, host application will create actors and add them to the simulation. Actors will need to be notified when they hit something else. 
+
+
+

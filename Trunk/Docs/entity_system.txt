@@ -1,0 +1,16 @@
+An "entity" represents an object that exists at some location in the simulation world and fills a certain amount of space.
+
+An entity knows how to receive messages, but that may be inherited from a base class. I think I may make more use of messages in this version.
+
+An entity is not very useful by itself; you will usually assign "attributes". Attributes are small, self-contained pieces of functionality that enable to entity to do different things. 
+
+An entity exists on the client, on the server, or on both.
+
+Complex multi-part actor types such as vehiclesmay want to use multiple entities. In this case, consider creating a higher level object to represent your own custom simulation objects. You can then use constraints to bind the entities together.
+
+
+
+### Rationale of the Entity System ###
+
+Splitting the behavior of simulation objects out into separate attributes increases the flexibility of the system but adds complexity. This method avoids excessive inheritance. It allows the behavior of objects to modified at runtime by external scripts.
+

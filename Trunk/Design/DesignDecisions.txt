@@ -1,0 +1,13 @@
+Should G2 source code be included in F4 distribution?
+
+  The question is, I guess, whether the G2 code would need to be modified in
+  order to support F4, or if changes only flow up from G2. There is always a
+  possibility that a bug could be discovered, or that a new method would be
+  needed, and it would be easiest to effect the change immediately without
+  pulling down the new features in G2, which might break the F4 build. So
+  it would be safest to work with a branch of G2, but always make sure that
+  the changes have been pushed back and a G2 version released before releasing
+  a new F4 version.
+  
+  So yes, keep a branch of the G2 code in the F4 distribution. Anyone working
+  from Subversion will get the latest code.
