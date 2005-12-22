@@ -1,3 +1,9 @@
+* Change texture formats to match Toolkit symbols
+
+* Can I remove utMatrix4 from Toolkit wrapper?
+
+* Remove empty Graphics folder from tests
+
 * Unit tests for SetMatrix() and SetTexture()
 
 * What kind of buffer options are there (static, dynamic, what else)? Have
