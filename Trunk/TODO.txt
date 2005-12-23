@@ -1,3 +1,5 @@
+* The `start` parameter on utDraw() is unused.
+
 * Change texture formats to match Toolkit symbols
 
 * Can I remove utMatrix4 from Toolkit wrapper?

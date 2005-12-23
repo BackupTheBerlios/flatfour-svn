@@ -60,7 +60,6 @@ namespace Straight8.Framework.Tests.GraphicsTests
 			Graphics.Swap();
 
 			Bitmap image = _wnd.GrabScreen();
-			image.Save("/home/jason/Desktop/screenshot.bmp");
 			Assert.IsTrue(0 == image.GetPixel(30,30).R, "Square is larger than expected");
 			Assert.IsTrue(0 < image.GetPixel(48,48).R, "Square was not rendered");
 		}
