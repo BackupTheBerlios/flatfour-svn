@@ -1,3 +1,5 @@
+* Add AssemblyInfo.cs with CLSCompliant flag (also add tickler to packaging)
+
 * The `start` parameter on utDraw() is unused.
 
 * Change texture formats to match Toolkit symbols
