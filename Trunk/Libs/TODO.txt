@@ -1,0 +1,7 @@
+* Fix "xxx is deprecated" warnings in wx.NET
+
+* Remove need for 2.4 compatibility flag, should be using 2.6 calls only
+
+* Why is wx-c registering image wrappers in imghandler.cxx? Why aren't the
+  .NET image handling routines being used instead?
+
