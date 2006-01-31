@@ -1,1 +1,0 @@
-Messaging is used to decouple engine subsystems and provide network transparency and journaling. See [A Case For Message Passing Architectures](http://www.cmpevents.com/sessions/GD/ACaseForMessagePassingArchitectures.ppt)
