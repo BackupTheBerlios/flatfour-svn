@@ -1,10 +1,8 @@
 project.name = "FlatFour_Libs"
 
-project.config["Debug"].bindir = "Bin/Debug"
-project.config["Debug"].libdir = "Bin/Debug"
+project.bindir = "../Bin"
+project.libdir = "."
 
-project.config["Release"].bindir = "Bin/Release"
-project.config["Release"].libdir = "Bin/Release"
-
+dopackage("wx.NET/Src/wx.NET")
 dopackage("wxc")
 dopackage("wxwidgets")

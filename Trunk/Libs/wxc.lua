@@ -8,7 +8,8 @@ package.language = "c++"
 
 	package.buildflags =
 	{
-		"no-64bit-checks"
+		"no-64bit-checks",
+		"no-import-lib"
 	}
 
 	package.config["Release"].buildflags =

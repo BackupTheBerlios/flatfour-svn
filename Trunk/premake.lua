@@ -3,18 +3,15 @@ project.name = "FlatFour"
 
 -- Build Options 
 
-	addoption("no-samples", "Exclude sample applications")
-	addoption("no-tests", "Exclude unit tests")
+	addoption("no-samples",   "Exclude sample applications")
+	addoption("no-tests",     "Exclude unit tests")
 	addoption("with-toolkit", "Include GameGuts in build (separate download)")
 
 
 -- Project-wide settings
 
-project.config["Debug"].bindir = "Bin/Debug"
-project.config["Debug"].libdir = "Bin/Debug"
-
-project.config["Release"].bindir = "Bin/Release"
-project.config["Release"].libdir = "Bin/Release"
+	project.bindir = "Bin"
+	project.libdir = "Libs"
 
 
 -- Packages
@@ -30,7 +27,7 @@ project.config["Release"].libdir = "Bin/Release"
 	dopackage("Code/Straight8.Framework")
 
 	if (options["with-toolkit"]) then
-		dopackage("Code/GameGuts/code/toolkit")
+		dopackage("Libs/GameGuts/code/toolkit")
 	end
 	
 
@@ -38,6 +35,5 @@ project.config["Release"].libdir = "Bin/Release"
 
 	function doclean(cmd, arg)
 		docommand(cmd, arg)
-		os.rmdir(project.config["Debug"].bindir)
-		os.rmdir(project.config["Release"].bindir)
+		os.rmdir(project.bindir)
 	end
