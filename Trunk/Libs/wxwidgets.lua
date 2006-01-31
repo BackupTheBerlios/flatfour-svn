@@ -11,10 +11,18 @@ package.language = "c++"
 		"no-64bit-checks"
 	}
 	
+	package.config["Release"].buildflags =
+	{
+		"optimize-size",
+		"no-symbols",
+		"no-frame-pointer"
+	}
+	
 	package.includepaths = 
 	{
 		"include",
 		"../include",
+		"src/expat/lib",
 		"src/jpeg",
 		"src/png",
 		"src/tiff",
@@ -26,7 +34,8 @@ package.language = "c++"
 	
 	package.defines = 
 	{
-		"_LIB"
+		"_LIB",
+		"COMPILED_FROM_DSP"
 	}
 	
 	package.config["Debug"].defines =
@@ -50,6 +59,7 @@ package.language = "c++"
 		matchfiles("src/jpeg/*.c"),
 		matchfiles("src/png/*.c"),
 		matchfiles("src/tiff/*.c"),
+		matchfiles("src/expat/lib/*.c"),
 		matchfiles("src/xml/*.cpp")
 	}
 
@@ -57,6 +67,9 @@ package.language = "c++"
 	{
 		-- These should be excluded from all builds
 		"src/common/execcmn.cpp",
+		"src/expat/lib/xmltok_impl.c",
+		"src/expat/lib/xmltok_ns.c",
+		"src/jpeg/ansi2knr.c",
 		"src/jpeg/jmemansi.c",
 		"src/jpeg/jmemdos.c",
 		"src/jpeg/jmemmac.c",
@@ -78,8 +91,15 @@ package.language = "c++"
 		"src/tiff/tif_win3.c",
 		
 		-- Windows only?
+		"src/generic/accel.cpp", --
+		"src/generic/caret.cpp", --
+		"src/generic/fdrepdlg.cpp", --
+		"src/generic/listctrl.cpp", --
 		"src/generic/msgdlgg.cpp",
-		"src/generic/paletteg.cpp"
+		"src/generic/notebook.cpp", --
+		"src/generic/paletteg.cpp",
+		"src/generic/statline.cpp", --
+		"src/generic/timer.cpp" --
 	}
 		
 	if (windows) then
