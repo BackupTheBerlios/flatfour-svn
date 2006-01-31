@@ -45,7 +45,7 @@ package.language = "c++"
 	}
 
 	if (windows) then
-		table.insert(package.defines, { "WIN32", "__WXMSW__", "__WIN95__" })
+		table.insert(package.defines, { "WIN32", "__WXMSW__" })
 	end
 	
 
@@ -60,7 +60,9 @@ package.language = "c++"
 		matchfiles("src/png/*.c"),
 		matchfiles("src/tiff/*.c"),
 		matchfiles("src/expat/lib/*.c"),
-		matchfiles("src/xml/*.cpp")
+		matchfiles("src/xml/*.cpp"),
+		matchfiles("src/xrc/*.cpp"),
+		matchfiles("src/zlib/*.c")
 	}
 
 	package.excludes =
@@ -89,17 +91,20 @@ package.language = "c++"
 		"src/tiff/tif_unix.c",
 		"src/tiff/tif_vms.c",
 		"src/tiff/tif_win3.c",
+		"src/zlib/example.c",
+		"src/zlib/minigzip.c",
 		
 		-- Windows only?
-		"src/generic/accel.cpp", --
-		"src/generic/caret.cpp", --
-		"src/generic/fdrepdlg.cpp", --
-		"src/generic/listctrl.cpp", --
+		"src/generic/accel.cpp",
+		"src/generic/caret.cpp",
+		"src/generic/fdrepdlg.cpp",
+		"src/generic/imaglist.cpp",
+		"src/generic/listctrl.cpp",
 		"src/generic/msgdlgg.cpp",
-		"src/generic/notebook.cpp", --
+		"src/generic/notebook.cpp",
 		"src/generic/paletteg.cpp",
-		"src/generic/statline.cpp", --
-		"src/generic/timer.cpp" --
+		"src/generic/statline.cpp",
+		"src/generic/timer.cpp"
 	}
 		
 	if (windows) then

@@ -11,6 +11,13 @@ package.language = "c++"
 		"no-64bit-checks"
 	}
 
+	package.config["Release"].buildflags =
+	{
+		"optimize-size",
+		"no-symbols",
+		"no-frame-pointer"
+	}
+	
 	package.includepaths = 
 	{
 		"../include",
@@ -20,8 +27,14 @@ package.language = "c++"
 
 -- Defined Symbols
 
+	package.config["Debug"].defines =
+	{
+		"_DEBUG",
+		"__WXDEBUG__"
+	}
+	
 	if (windows) then
-		table.insert(package.defines, "_WINDOWS")
+		table.insert(package.defines, { "__WXMSW__", "_WINDOWS", "WIN32" })
 	end
 
 	
@@ -29,7 +42,12 @@ package.language = "c++"
 
 	package.links =
 	{
-		"wxWidgets"
+		"wxWidgets",
+		"comctl32",
+		"rpcrt4",
+		"wsock32",
+		"oleacc",
+		"odbc32"
 	}
 	
 	
