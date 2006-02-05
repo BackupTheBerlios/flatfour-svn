@@ -20,8 +20,8 @@ package.language = "c++"
 	
 	package.includepaths = 
 	{
-		"include",
 		"../include",
+		"include",
 		"src/expat/lib",
 		"src/jpeg",
 		"src/png",
@@ -47,7 +47,23 @@ package.language = "c++"
 	if (windows) then
 		table.insert(package.defines, { "WIN32", "__WXMSW__" })
 	end
-	
+
+	if (linux) then
+		table.insert(package.defines, { "__WXGTK__" })
+	end
+		
+
+-- On non-Windows platforms, you need to run ./configure first to build
+-- a setup.h for the platform. Eventually I'll try to get rid of this step
+
+	if (not windows) then
+		setup_h = matchrecursive("lib/setup.h")
+		if (table.getn(setup_h) == 0) then
+			error("setup.h not found; please run wxWidgets/configure")
+		end
+		table.insert(package.includepaths, "lib/wx/include/gtk2-ansi-release-2.6/wx")
+	end
+
 
 -- Files
 
@@ -92,9 +108,11 @@ package.language = "c++"
 		"src/tiff/tif_vms.c",
 		"src/tiff/tif_win3.c",
 		"src/zlib/example.c",
-		"src/zlib/minigzip.c",
-		
-		-- Windows only?
+		"src/zlib/minigzip.c"
+	}
+	
+	msw_excludes =
+	{	
 		"src/generic/accel.cpp",
 		"src/generic/caret.cpp",
 		"src/generic/fdrepdlg.cpp",
@@ -106,8 +124,21 @@ package.language = "c++"
 		"src/generic/statline.cpp",
 		"src/generic/timer.cpp"
 	}
+	
+	gtk_excludes =
+	{
+		"src/generic/notebook.cpp",
+		"src/generic/statline.cpp",
+		"src/generic/timer.cpp"
+	}
 		
 	if (windows) then
 		table.insert(package.files, matchfiles("src/msw/*.cpp", "src/msw/ole/*.cpp"))
+		table.insert(package.excludes, msw_excludes)
+	end
+	
+	if (linux) then
+		table.insert(package.files, matchfiles("src/gtk/*.cpp"))
+		table.insert(package.excludes, gtk_excludes)
 	end
 	

@@ -3,8 +3,13 @@
  * enables the features actually used by the Flat Four editor and addons.
  ***************************************************************************/
 
-#ifndef _WX_SETUP_H_
-#define _WX_SETUP_H_
+#ifndef _FLATFOUR_SETUP_H_
+#define _FLATFOUR_SETUP_H_
+
+/* On non-Windows platforms, load ./configure generated setup.h */
+#if !defined(__WXMSW__)
+#include <setup.h>
+#endif
 
 #if defined(__WXMSW__) && defined(__VISUALC__)
 #pragma warning(disable:4800)   /* forcing value to bool (performance warning) */
@@ -60,7 +65,7 @@
 #define wxUSE_ZIPSTREAM               0  /* No need for .ZIP streams */
 #define wxUSE_ZLIB                    1  /* Include zlib support */
 #define wxUSE_APPLE_IEEE              1  /* Support IEEE floats to disk */
-#define wxUSE_JOYSTICK                1  /* Enable joystick support */
+#define wxUSE_JOYSTICK                0  /* Enable joystick support */
 #define wxUSE_FONTMAP                 1  /* Enable fontmap support */
 #define wxUSE_MIMETYPE                1  /* Enable mime-type support */
 #define wxUSE_PROTOCOL                1  /* For wxURL, wxHTTP, wxFTP */

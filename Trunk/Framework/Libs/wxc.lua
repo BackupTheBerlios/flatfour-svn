@@ -38,6 +38,10 @@ package.language = "c++"
 		table.insert(package.defines, { "__WXMSW__", "_WINDOWS", "WIN32" })
 	end
 
+	if (linux) then
+		table.insert(package.defines, { "__WXGTK__" })
+	end
+	
 	
 -- Libraries
 
