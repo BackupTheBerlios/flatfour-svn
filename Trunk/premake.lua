@@ -5,7 +5,8 @@ project.name = "FlatFour"
 
 	addoption("no-bootstrap", "Exclude bootstrap application")
 	addoption("no-editor",    "Exclude the editor application")
-	addoption("no-samples",   "Exclude sample applications")
+	addoption("no-graphics",  "Exclude graphics subsystem")
+	addoption("no-platform",  "Exclude platform abstraction subsystem")
 	addoption("no-tests",     "Exclude unit tests")
 	addoption("with-toolkit", "Include GameGuts in build (separate download)")
 
@@ -33,15 +34,19 @@ project.name = "FlatFour"
 		dopackage("Framework/Bootstrap")
 	end
 
-	if (not options["no-samples"]) then
-		dopackage("Samples/Framework")
+	dopackage("Framework/FlatFour")
+
+	if (not options["no-graphics"]) then
+		dopackage("Framework/FlatFour.Graphics")
 	end
 	
-	if (not options["no-tests"]) then
-		dopackage("Framework/Straight8.Framework.Tests")
+	if (not options["no-platform"]) then
+		dopackage("Framework/FlatFour.Platform")
 	end
 
-	dopackage("Framework/Straight8.Framework")
+	if (not options["no-tests"]) then
+		dopackage("Framework/FlatFour.Tests")
+	end
 
 	if (options["with-toolkit"]) then
 		dopackage("Framework/Libs/GameGuts/code/toolkit")
