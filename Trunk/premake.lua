@@ -17,12 +17,17 @@ project.name = "FlatFour"
 	project.libdir = "Code/Libs"
 
 
+-- Build system support code
+
+	dofile("Framework/Build/functions.lua")
+	
+	
 -- Let the user customize their own build environment
 
 	-- if (os.fileexists("user.lua")) then
 	--	dofile("user.lua")
 	-- end
-	
+
 
 -- Packages
 
@@ -50,8 +55,14 @@ project.name = "FlatFour"
 	end
 	
 
--- Support Functions
+-- Command Handlers
 
 	function doclean(cmd, arg)
 		docommand(cmd, arg)
 	end
+
+	function dotarget(cmd, arg)
+		docommand(cmd, arg)
+		setup_nunit()
+	end
+	

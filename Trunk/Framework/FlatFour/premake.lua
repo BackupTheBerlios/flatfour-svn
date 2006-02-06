@@ -32,7 +32,4 @@ package.files =
 
 -- Unit test support
 
-	if (not options["no-tests"]) then
-		table.insert(package.links, "nunit.framework")
-		table.insert(package.files, matchfiles("Tests/*.cs"))
-	end
+	enable_tests()
