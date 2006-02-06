@@ -2,24 +2,13 @@ package.name = "FlatFour.Graphics"
 package.kind = "dll"
 package.language = "c#"
 
-package.defines = 
-{ 
-	"TRACE" 
-}
-
-package.config["Debug"].defines =
-{
-	"DEBUG"
-}
-
 package.links = 
 { 
-	"System", 
-	"System.Drawing",
-	"System.Xml" 
 }
 
 package.files = 
 {
 	matchrecursive("*.cs")
 }
+
+configure_package()

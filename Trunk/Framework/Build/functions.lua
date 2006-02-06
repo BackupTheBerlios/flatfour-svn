@@ -1,16 +1,18 @@
--- Configure the current package for unit testing
+
+-- Unit testing support 
 
 	nunit_modules = { }
 	
-	function enable_tests()
+	function configure_unittests()
 		if (not options["no-tests"]) then
 			table.insert(package.links, "nunit.framework")
-			table.insert(package.files, matchrecursive("Tests/*.cs"))
 			if (package.target) then
 				table.insert(nunit_modules, package.target)
 			else
 				table.insert(nunit_modules, package.name)
 			end
+		else
+			table.insert(package.excludes, matchrecursive("Tests/*"))
 		end
 	end
 		
@@ -29,3 +31,26 @@
 		end
 	end
 
+
+-- Configure a new package
+
+	function configure_package()
+		-- Standard .NET defines
+		table.insert(package.defines, "TRACE")
+		table.insert(package.config["Debug"].defines, "DEBUG")
+		
+		-- Add the support libraries directory
+		table.insert(package.libpaths, "../Libs")
+		
+		-- Add the standard Framework libraries
+		table.insert(package.links, "System")
+		if (package.name ~= "FlatFour") then
+			table.insert(package.links, "FlatFour")
+		end
+		
+		-- Enable unit testing
+		if (package.language ~= "c" and package.language ~= "c++") then
+			configure_unittests()
+		end
+	end
+	
