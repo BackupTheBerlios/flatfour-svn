@@ -44,9 +44,6 @@ project.name = "FlatFour"
 		dopackage("Framework/FlatFour.Platform")
 	end
 
-	if (not options["no-tests"]) then
-		dopackage("Framework/FlatFour.Tests")
-	end
 
 	if (options["with-toolkit"]) then
 		dopackage("Framework/Libs/GameGuts/code/toolkit")

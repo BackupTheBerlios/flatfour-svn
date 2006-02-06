@@ -1,7 +1,9 @@
 ﻿<NUnitProject>
   <Settings activeconfig="Debug" />
   <Config name="Debug" binpathtype="Auto">
-    <assembly path="Bin\Debug\Straight8.Framework.Tests.dll" />
+    <assembly path="Bin\FlatFour.Tests.dll" />
+    <assembly path="Bin\FlatFour.Platform.dll" />
+    <assembly path="Bin\FlatFour.dll" />
   </Config>
   <Config name="Release" binpathtype="Auto" />
 </NUnitProject>

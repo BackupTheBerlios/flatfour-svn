@@ -20,7 +20,7 @@ using FlatFour;
 namespace FlatFour.Tests
 {
 	[TestFixture]
-	public class Subsystems
+	public class Test_Subsystems
 	{
 		#region Setup and Teardown
 
