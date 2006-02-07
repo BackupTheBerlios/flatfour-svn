@@ -16,7 +16,7 @@
 using System;
 using System.Diagnostics;
 using NUnit.Framework;
-using Sim8.GameGuts;
+using GameGuts;
 
 namespace FlatFour.Platform.Tests
 {

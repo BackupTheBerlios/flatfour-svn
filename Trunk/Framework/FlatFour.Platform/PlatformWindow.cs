@@ -15,7 +15,7 @@
 
 using System;
 using System.Collections;
-using Sim8.GameGuts;
+using GameGuts;
 
 namespace FlatFour.Platform
 {
@@ -46,7 +46,7 @@ namespace FlatFour.Platform
 			_windows[_window] = this;
 		}
 
-		public void Dispose()
+		public virtual void Dispose()
 		{
 			if (_window != IntPtr.Zero)
 			{
@@ -65,6 +65,15 @@ namespace FlatFour.Platform
 				throw new FrameworkException();
 			_width = Toolkit.utGetWindowWidth(_window);
 			_height = Toolkit.utGetWindowHeight(_window);
+		}
+
+		public IntPtr Handle
+		{
+			get 
+			{
+				IntPtr handle = Toolkit.utGetWindowHandle(_window);
+				return handle;
+			}
 		}
 
 		public int Width

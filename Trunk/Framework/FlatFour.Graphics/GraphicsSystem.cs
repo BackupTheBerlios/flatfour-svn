@@ -1,5 +1,5 @@
 #region BSD License
-/* FlatFour.Platform - PlatformSystem.cs
+/* FlatFour.Graphics - GraphicsSystem.cs
  * Copyright (c) 2001-2006 Jason Perkins.
  * All rights reserved.
  * 
@@ -15,16 +15,18 @@
 
 using System;
 using System.Diagnostics;
+using FlatFour.Platform;
 using GameGuts;
 
-namespace FlatFour.Platform
+namespace FlatFour.Graphics
 {
-	public class PlatformSystem
+	public class GraphicsSystem
 	{
 		#region Setup and Shutdown
 
-		static PlatformSystem()
+		static GraphicsSystem()
 		{
+			PlatformSystem.EnsureReady();
 			Framework.Startup += new EventHandler(OnStartup);
 			Framework.Shutdown += new EventHandler(OnShutdown);
 		}
@@ -38,60 +40,52 @@ namespace FlatFour.Platform
 
 		private static void OnStartup(object sender, EventArgs e)
 		{
-			Trace.WriteLine("Starting platform abstraction subsystem");
+			Trace.WriteLine("Starting graphics subsystem");
 			if (!Toolkit.utInitialize())
 				throw new FrameworkException();
-			Trace.WriteLine("Platform subsystem started");
+			Trace.WriteLine("Graphics subsystem started");
 		}
 
 
 		private static void OnShutdown(object sender, EventArgs e)
 		{
-			Trace.WriteLine("Stopping platform abstraction subsystem");
+			Trace.WriteLine("Stopping graphics subsystem");
 			if (!Toolkit.utShutdown())
 				throw new FrameworkException();
-			Trace.WriteLine("Platform subsystem stopped");
+			Trace.WriteLine("Graphics subsystem stopped");
 		}
 
 		#endregion
 
-		#region Event Loop
-
-		public static event InputHandler Input;
-		public static event TickHandler Tick;
-		
-		public static void EventLoop()
+		public static void BeginFrame()
 		{
-			Toolkit.utEventHandler callback = new Toolkit.utEventHandler(OnEvent);
-			Toolkit.utSetEventHandler(callback);
-
-			while (Toolkit.utPollEvents(false))
-			{
-				if (Tick != null)
-					Tick();
-			}
+			if (!Toolkit.utBeginFrame())
+				throw new FrameworkException();
 		}
 
-		private static void OnEvent(ref Toolkit.utEvent e)
+		public static void Clear(float red, float green, float blue, float alpha)
 		{
-			switch (e.what)
-			{
-			case Toolkit.utEventKind.UT_EVENT_WINDOW_CLOSE:
-			case Toolkit.utEventKind.UT_EVENT_WINDOW_REDRAW:
-			case Toolkit.utEventKind.UT_EVENT_WINDOW_RESIZE:
-				PlatformWindow.HandleEvent(ref e);
-				break;
-
-			default:
-				if (Input != null)
-				{
-					InputEventArgs args = InputEventArgs.FromEvent(e);
-					Input(args);
-				}
-				break;
-			}
+			if (!Toolkit.utClear(red, green, blue, alpha))
+				throw new FrameworkException();
 		}
 
-		#endregion
+		public static void Draw(VertexBuffer vertices, VertexFormat format, IndexBuffer indices)
+		{
+			if (!Toolkit.utDraw(vertices.Handle, format.Handle, indices.Handle, 0, indices.Length))
+				throw new FrameworkException();
+		}
+
+		public static void EndFrame()
+		{
+			if (!Toolkit.utEndFrame())
+				throw new FrameworkException();
+		}
+
+		public static void Swap()
+		{
+			if (!Toolkit.utSwapAllRenderTargets())
+				throw new FrameworkException();
+		}
+
 	}
 }

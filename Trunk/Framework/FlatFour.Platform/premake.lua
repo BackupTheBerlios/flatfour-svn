@@ -4,7 +4,7 @@ package.language = "c#"
 
 package.links =
 {
-	"Sim8.GameGuts"
+	"GameGuts.NET"
 }
 
 package.files = 

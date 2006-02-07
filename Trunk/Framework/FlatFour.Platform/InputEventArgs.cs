@@ -14,7 +14,7 @@
 #endregion
 
 using System;
-using Sim8.GameGuts;
+using GameGuts;
 
 namespace FlatFour.Platform
 {

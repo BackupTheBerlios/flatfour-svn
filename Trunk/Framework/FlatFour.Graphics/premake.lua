@@ -3,7 +3,10 @@ package.kind = "dll"
 package.language = "c#"
 
 package.links = 
-{ 
+{
+	"System.Drawing",
+	"FlatFour.Platform",
+	"GameGuts.NET"
 }
 
 package.files = 
