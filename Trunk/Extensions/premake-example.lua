@@ -1,16 +1,24 @@
-package.name = "FlatFour.Platform"
+package.name = "YourPackageNameHere"
+
 package.kind = "dll"
+
 package.language = "c#"
+
+
+package.defines =
+{
+}
+
 
 package.links =
 {
-	"Sim8.GameGuts"
 }
 
-package.files = 
+
+package.files =
 {
 	matchrecursive("*.cs")
 }
 
+
 configure_package()
-	

@@ -14,6 +14,8 @@
 #endregion
 
 using System;
+using System.Diagnostics;
+using Sim8.GameGuts;
 
 namespace FlatFour.Platform
 {
@@ -36,11 +38,58 @@ namespace FlatFour.Platform
 
 		private static void OnStartup(object sender, EventArgs e)
 		{
+			Trace.WriteLine("Starting platform abstraction subsystem");
+			if (!Toolkit.utInitialize())
+				throw new FrameworkException();
+			Trace.WriteLine("Platform subsystem started");
 		}
 
 
 		private static void OnShutdown(object sender, EventArgs e)
 		{
+			Trace.WriteLine("Stopping platform abstraction subsystem");
+			if (!Toolkit.utShutdown())
+				throw new FrameworkException();
+			Trace.WriteLine("Platform subsystem stopped");
+		}
+
+		#endregion
+
+		#region Event Loop
+
+		public static event InputHandler Input;
+		public static event TickHandler Tick;
+		
+		public static void EventLoop()
+		{
+			Toolkit.utEventHandler callback = new Toolkit.utEventHandler(OnEvent);
+			Toolkit.utSetEventHandler(callback);
+
+			while (Toolkit.utPollEvents(false))
+			{
+				if (Tick != null)
+					Tick();
+			}
+		}
+
+		private static void OnEvent(ref Toolkit.utEvent e)
+		{
+			switch (e.what)
+			{
+			case Toolkit.utEventKind.UT_EVENT_WINDOW_CLOSE:
+			case Toolkit.utEventKind.UT_EVENT_WINDOW_REDRAW:
+			case Toolkit.utEventKind.UT_EVENT_WINDOW_RESIZE:
+				PlatformWindow.HandleEvent(ref e);
+				break;
+
+			default:
+				if (Input != null)
+				{
+					InputEventArgs args = InputEventArgs.FromEvent(e);
+					Input(args);
+				}
+				break;
+			}
 		}
 
 		#endregion

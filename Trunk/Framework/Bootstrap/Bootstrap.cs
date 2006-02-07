@@ -15,6 +15,7 @@
 
 using System;
 using System.Diagnostics;
+using FlatFour.Platform;
 
 namespace FlatFour.Bootstrapper
 {
@@ -22,7 +23,11 @@ namespace FlatFour.Bootstrapper
 	{
 		static int Main(string[] args)
 		{
-			Trace.WriteLine("bootstrapping");
+			PlatformWindow wnd = new PlatformWindow("Test Window", 640, 480);
+
+			PlatformSystem.EventLoop();
+
+			wnd.Dispose();
 			return 0;
 		}
 	}

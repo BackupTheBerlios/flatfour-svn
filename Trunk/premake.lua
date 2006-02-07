@@ -14,7 +14,7 @@ project.name = "FlatFour"
 -- Project-wide settings
 
 	project.bindir = "Bin"
-	project.libdir = "Code/Libs"
+	project.libdir = "Framework/Libs"
 
 
 -- Build system support code
@@ -39,6 +39,11 @@ project.name = "FlatFour"
 		dopackage("Framework/Bootstrap")
 	end
 
+	if (options["with-toolkit"]) then
+		dopackage("Framework/Libs/GameGuts/code/toolkit")
+		dopackage("Framework/Libs/GameGuts/bindings/dotnet")
+	end
+	
 	dopackage("Framework/FlatFour")
 
 	if (not options["no-graphics"]) then
@@ -50,15 +55,12 @@ project.name = "FlatFour"
 	end
 
 
-	if (options["with-toolkit"]) then
-		dopackage("Framework/Libs/GameGuts/code/toolkit")
-	end
-	
 
 -- Command Handlers
 
 	function doclean(cmd, arg)
 		docommand(cmd, arg)
+		os.remove("FlatFour.nunit")
 	end
 
 	function dotarget(cmd, arg)

@@ -59,7 +59,16 @@ namespace FlatFour
 					object[] args = new object[] { null, EventArgs.Empty };
 					Delegate[] delegates = _shutdown.GetInvocationList();
 					for (int i = delegates.Length - 1; i >= 0; --i)
-						delegates[i].DynamicInvoke(args);
+					{
+						try
+						{
+							delegates[i].DynamicInvoke(args);
+						}
+						catch (System.Reflection.TargetInvocationException ex)
+						{
+							throw ex.InnerException;
+						}
+					}
 				}
 			}
 		}
