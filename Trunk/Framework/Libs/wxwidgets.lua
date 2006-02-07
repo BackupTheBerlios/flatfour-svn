@@ -61,7 +61,21 @@ package.language = "c++"
 		if (table.getn(setup_h) == 0) then
 			error("setup.h not found; please run wxWidgets/configure")
 		end
-		table.insert(package.includepaths, "lib/wx/include/gtk2-ansi-release-2.6/wx")
+		
+		setup_path = path.getdir(setup_h[1])
+		table.insert(package.includepaths, setup_path)
+	end
+	
+	if (linux) then
+		package.buildoptions = 
+		{ 
+			"`pkg-config --cflags gtk+-2.0`",
+			"-Wall",
+			"-Wundef",
+			"-Wno-ctor-dtor-privacy",
+			"-DNO_GCC_PRAGMA",
+			"-DGTK_NO_CHECK_CASTS"
+		}
 	end
 
 
