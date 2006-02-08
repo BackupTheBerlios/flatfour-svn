@@ -356,7 +356,7 @@
 #define wxUSE_CONSTRAINTS             1
 #define wxUSE_SPLINES                 1
 #define wxUSE_MOUSEWHEEL              1
-#define wxUSE_POSTSCRIPT              0
+#define wxUSE_POSTSCRIPT              1
 #define wxUSE_AFM_FOR_POSTSCRIPT      1
 #define wxUSE_ODBC                    0
 #define wxODBC_FWD_ONLY_CURSORS	     1

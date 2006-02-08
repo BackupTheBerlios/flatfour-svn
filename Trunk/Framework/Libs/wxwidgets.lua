@@ -34,8 +34,7 @@ package.language = "c++"
 	
 	package.defines = 
 	{
-		"_LIB",
-		"COMPILED_FROM_DSP"
+		"_LIB"
 	}
 	
 	package.config["Debug"].defines =
@@ -44,12 +43,23 @@ package.language = "c++"
 		"__WXDEBUG__"
 	}
 
+	msw_defines =
+	{
+		"__WXMSW__", "WIN32",
+		"COMPILED_FROM_DSP"  -- for Expat
+	}
+	
+	gtk_defines =
+	{
+		"__WXGTK__"
+	}
+	
 	if (windows) then
-		table.insert(package.defines, { "WIN32", "__WXMSW__" })
+		table.insert(package.defines, msw_defines)
 	end
 
 	if (linux) then
-		table.insert(package.defines, { "__WXGTK__" })
+		table.insert(package.defines, gtk_defines)
 	end
 		
 
@@ -72,7 +82,6 @@ package.language = "c++"
 			"`pkg-config --cflags gtk+-2.0`",
 			"-Wall",
 			"-Wundef",
-			"-Wno-ctor-dtor-privacy",
 			"-DNO_GCC_PRAGMA",
 			"-DGTK_NO_CHECK_CASTS"
 		}
@@ -116,6 +125,9 @@ package.language = "c++"
 		"src/tiff/tif_acorn.c",
 		"src/tiff/tif_apple.c",
 		"src/tiff/tif_atari.c",
+		"src/tiff/tif_fax3.c",
+		"src/tiff/tif_fax3sm.c",
+		"src/tiff/tif_luv.c",
 		"src/tiff/tif_msdos.c",
 		"src/tiff/tif_os2.c",
 		"src/tiff/tif_unix.c",
@@ -141,9 +153,14 @@ package.language = "c++"
 	
 	gtk_excludes =
 	{
+		"src/generic/mdig.cpp",
 		"src/generic/notebook.cpp",
 		"src/generic/statline.cpp",
-		"src/generic/timer.cpp"
+		"src/generic/timer.cpp",
+		"src/gtk/threadno.cpp",   -- I've disabled threading
+		"src/gtk/threadsgi.cpp",
+		"src/gtk/treegtk.cpp",
+		"src/tiff/tif_win32.c"
 	}
 		
 	if (windows) then
