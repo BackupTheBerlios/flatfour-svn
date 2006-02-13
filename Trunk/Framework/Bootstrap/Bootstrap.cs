@@ -27,7 +27,7 @@ namespace FlatFour.Bootstrapper
 
 			PlatformSystem.EventLoop();
 
-			wnd.Dispose();
+            Framework.Disconnect();
 			return 0;
 		}
 	}

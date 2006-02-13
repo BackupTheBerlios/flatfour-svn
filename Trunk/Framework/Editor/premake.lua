@@ -6,12 +6,12 @@ package.language = "c#"
 package.links =
 {
 	"System.Drawing",
-	"wx.NET"
+	"System.Windows.Forms"
 }
 
 package.files =
 {
-	matchrecursive("*.cs")
+	matchrecursive("*.cs", "*.resx", "*.settings")
 }
 
 configure_package()
