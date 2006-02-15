@@ -20,7 +20,7 @@ using GameGuts;
 
 namespace FlatFour.Graphics
 {
-	public class GraphicsSystem
+	public static class GraphicsSystem
 	{
 		#region Setup and Shutdown
 
@@ -56,6 +56,14 @@ namespace FlatFour.Graphics
 		}
 
 		#endregion
+
+		/* Render a complete frame of the provided frame, using the viewpoint
+		 * and render target provided by the provided camera. */
+		public static void DrawFrame()
+		{
+			throw new NotImplementedException("GraphicsSystem.DrawFrame");
+		}
+
 
 		public static void BeginFrame()
 		{

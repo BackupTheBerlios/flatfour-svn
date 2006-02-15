@@ -25,8 +25,16 @@ namespace FlatFour.Graphics.Tests
 		public void CanConnectAndDisconnectCleanly()
 		{
 			GraphicsSystem.EnsureReady();
-			Framework.Connect();
 			Framework.Disconnect();
+			Framework.Connect();
+		}
+
+		[Test]
+		[ExpectedException(typeof(NotImplementedException))]
+		public void DrawFrameFails()
+		{
+			GraphicsSystem.EnsureReady();
+			GraphicsSystem.DrawFrame();
 		}
 	}
 }

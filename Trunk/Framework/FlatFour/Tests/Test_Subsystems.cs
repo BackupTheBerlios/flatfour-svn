@@ -1,5 +1,5 @@
 #region BSD License
-/* FlatFour.Tests - Subsystems.cs
+/* FlatFour.Tests - Test_Subsystems.cs
  * Copyright (c) 2001-2006 Jason Perkins.
  * All rights reserved.
  * 
@@ -48,7 +48,6 @@ namespace FlatFour.Tests
 		}
 		
 		#endregion
-
 
 		[Test]
 		public void CanConnectWithNoSubsystems()
