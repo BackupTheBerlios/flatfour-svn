@@ -16,6 +16,7 @@
 using System;
 using System.Diagnostics;
 using FlatFour.Platform;
+using FlatFour.Graphics;
 
 namespace FlatFour.Bootstrapper
 {
@@ -23,11 +24,11 @@ namespace FlatFour.Bootstrapper
 	{
 		static int Main(string[] args)
 		{
-			PlatformWindow wnd = new PlatformWindow("Test Window", 640, 480);
+			GraphicsWindow wnd = new GraphicsWindow("Test Window", 640, 480);
 
 			PlatformSystem.EventLoop();
 
-            Framework.Disconnect();
+			Framework.Disconnect();
 			return 0;
 		}
 	}
