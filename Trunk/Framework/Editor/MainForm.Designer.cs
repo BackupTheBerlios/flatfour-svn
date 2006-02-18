@@ -44,7 +44,9 @@ namespace Editor
 		private void InitializeComponent()
 		{
 			this.components = new System.ComponentModel.Container();
+#if !MONO			
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+#endif			
 			this.Text = "Form1";
 		}
 

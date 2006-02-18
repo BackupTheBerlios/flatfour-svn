@@ -38,6 +38,12 @@
 		-- Standard .NET defines
 		table.insert(package.defines, "TRACE")
 		table.insert(package.config["Debug"].defines, "DEBUG")
+	
+		-- Mono's .NET 2.0 support isn't quite there yet. I use this symbol
+		-- to block out code that doesn't work there yet
+		if (options["target"] == "gnu") then
+			table.insert(package.defines, "MONO")
+		end
 		
 		-- Add the support libraries directory
 		table.insert(package.libpaths, "../Libs")

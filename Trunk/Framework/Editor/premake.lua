@@ -12,6 +12,9 @@ package.links =
 package.files =
 {
 	matchrecursive("*.cs", "*.resx", "*.settings")
+	--matchfiles("*.cs"),
+	--matchfiles("Properties/AssemblyInfo.cs"),
+	--matchfiles("Properties/Resources.resx")
 }
 
 configure_package()

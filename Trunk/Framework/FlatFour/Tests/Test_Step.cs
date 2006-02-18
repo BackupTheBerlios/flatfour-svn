@@ -57,6 +57,7 @@ namespace FlatFour.Tests
 		[Test]
 		public void StepDoesNotCallFixedUpdateOnZeroInterval()
 		{
+			Framework.FixedUpdate += new EventHandler(OnFixedUpdate);
 			Framework.Clock.Reset();
 			Framework.Step();
 			Assert.AreEqual(0, _fixedUpdates, "Fixed update handler called on zero interval");
