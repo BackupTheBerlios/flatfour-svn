@@ -14,6 +14,7 @@
 #endregion
 
 using System;
+using System.Drawing;
 using NUnit.Framework;
 
 namespace FlatFour.Graphics.Tests
@@ -30,11 +31,17 @@ namespace FlatFour.Graphics.Tests
 		}
 
 		[Test]
-		[ExpectedException(typeof(NotImplementedException))]
-		public void DrawFrameFails()
+		public void OnTickClearsTargets()
 		{
-			GraphicsSystem.EnsureReady();
-			GraphicsSystem.DrawFrame();
+			using (GraphicsWindow wnd = new GraphicsWindow("Test", 128, 128))
+			{
+				wnd.Camera.BackgroundColor = Color.White;
+				GraphicsSystem.DrawFrame();
+
+				Bitmap image = wnd.GrabScreen();
+				Color color = image.GetPixel(1, 1);
+				Assert.AreEqual(Color.FromArgb(0xff, 0xff, 0xff, 0xff), color);
+			}
 		}
 	}
 }

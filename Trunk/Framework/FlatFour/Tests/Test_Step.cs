@@ -49,7 +49,7 @@ namespace FlatFour.Tests
 		public void ClockStartsOnFirstStep()
 		{
 			Framework.Clock.Stop();
-			Framework.Step();
+			Framework.Tick();
 			Assert.IsTrue(Framework.Clock.IsStarted);
 		}
 
@@ -59,7 +59,7 @@ namespace FlatFour.Tests
 		{
 			Framework.FixedUpdate += new EventHandler(OnFixedUpdate);
 			Framework.Clock.Reset();
-			Framework.Step();
+			Framework.Tick();
 			Assert.AreEqual(0, _fixedUpdates, "Fixed update handler called on zero interval");
 		}
 
@@ -68,7 +68,7 @@ namespace FlatFour.Tests
 		public void StepCallsFrameUpdate()
 		{
 			Framework.FrameUpdate += new EventHandler(OnFrameUpdate);
-			Framework.Step();
+			Framework.Tick();
 			Assert.AreEqual(1, _frameUpdates, "Frame update handler not called");
 		}
 	}

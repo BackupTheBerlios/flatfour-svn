@@ -21,9 +21,11 @@ using GameGuts;
 
 namespace FlatFour.Graphics
 {
-	public class GraphicsWindow : PlatformWindow
+	public class GraphicsWindow : IRenderTarget
 	{
+		private PlatformWindow _window;
 		private IntPtr _handle;
+		private Camera _camera;
 
 		#region Setup and Teardown
 
@@ -33,32 +35,54 @@ namespace FlatFour.Graphics
 		}
 
 		public GraphicsWindow(string title, int width, int height)
-			: base(title, width, height)
 		{
-			_handle = Toolkit.utCreateWindowTarget(this.Handle);
+			_window = new PlatformWindow(title, width, height);
+			_handle = Toolkit.utCreateWindowTarget(_window.Handle);
 			if (_handle == IntPtr.Zero)
 				throw new FrameworkException();
+			GraphicsSystem.RenderTarget.Add(this);
+
+			_camera = new Camera();
 		}
 
-		public override void Dispose()
+		public void Dispose()
 		{
 			if (_handle != IntPtr.Zero)
 			{
 				if (!Toolkit.utReleaseRenderTarget(_handle))
 					throw new FrameworkException();
 				_handle = IntPtr.Zero;
+				GraphicsSystem.RenderTarget.Remove(this);
 			}
 
-			base.Dispose ();
+			_window.Dispose ();
+			_window = null;
 		}
 
 		#endregion
 
-	
+
+		public Camera Camera
+		{
+			get { return _camera; }
+			set { _camera = value; }
+		}
+
+		public int Height
+		{
+			get { return _window.Height; }
+		}
+
+		public int Width
+		{
+			get { return _window.Width; }
+		}
+
+
 		public Bitmap GrabScreen()
 		{
-			Bitmap bmp = new Bitmap(this.Width, this.Height, PixelFormat.Format24bppRgb);
-			Rectangle rect = new Rectangle(0, 0, this.Width, this.Height);
+			Bitmap bmp = new Bitmap(Width, Height, PixelFormat.Format24bppRgb);
+			Rectangle rect = new Rectangle(0, 0, Width, Height);
 			BitmapData data = bmp.LockBits(rect, ImageLockMode.WriteOnly, PixelFormat.Format24bppRgb);
 
 			if (!Toolkit.utGrabScreen(_handle, data.Scan0))

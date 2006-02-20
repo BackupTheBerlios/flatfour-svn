@@ -183,7 +183,7 @@ namespace FlatFour
 		}
 
 		/* Advance all systems to the current time */
-		public static void Step()
+		public static void Tick()
 		{
 			/* Calculate the time elapsed since the last step */
 			if (!Clock.IsStarted)

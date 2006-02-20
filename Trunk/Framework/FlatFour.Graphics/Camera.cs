@@ -1,5 +1,5 @@
 #region BSD License
-/* Flat Four Bootstrapper - Bootstrap.cs
+/* FlatFour.Graphics - Camera.cs
  * Copyright (c) 2001-2006 Jason Perkins.
  * All rights reserved.
  * 
@@ -14,29 +14,23 @@
 #endregion
 
 using System;
-using System.Diagnostics;
-using FlatFour.Platform;
-using FlatFour.Graphics;
+using System.Drawing;
 
-namespace FlatFour.Bootstrapper
+namespace FlatFour.Graphics
 {
-	public class Bootstrap
+	public class Camera
 	{
-		static int Main(string[] args)
+		private Color _backgroundColor;
+
+		public Camera()
 		{
-			GraphicsWindow wnd = new GraphicsWindow("Test Window", 640, 480);
-			wnd.Camera.BackgroundColor = System.Drawing.Color.SkyBlue;
-
-			PlatformSystem.Tick += new TickHandler(OnTick);
-			PlatformSystem.EventLoop();
-
-			Framework.Disconnect();
-			return 0;
+			_backgroundColor = Color.Black;
 		}
 
-		static void OnTick()
+		public Color BackgroundColor
 		{
-			Framework.Tick();
+			get { return _backgroundColor; }
+			set { _backgroundColor = value; }
 		}
 	}
 }

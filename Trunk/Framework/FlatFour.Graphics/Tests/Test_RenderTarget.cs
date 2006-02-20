@@ -1,5 +1,5 @@
 #region BSD License
-/* Flat Four Bootstrapper - Bootstrap.cs
+/* FlatFour.Graphics.Tests - Test_RenderTarget.cs
  * Copyright (c) 2001-2006 Jason Perkins.
  * All rights reserved.
  * 
@@ -14,29 +14,32 @@
 #endregion
 
 using System;
-using System.Diagnostics;
-using FlatFour.Platform;
-using FlatFour.Graphics;
+using System.Drawing;
+using NUnit.Framework;
 
-namespace FlatFour.Bootstrapper
+namespace FlatFour.Graphics.Tests
 {
-	public class Bootstrap
+	[TestFixture]
+	public class Test_RenderTarget
 	{
-		static int Main(string[] args)
+		private GraphicsWindow _wnd;
+
+		[SetUp]
+		public void Test_Setup()
 		{
-			GraphicsWindow wnd = new GraphicsWindow("Test Window", 640, 480);
-			wnd.Camera.BackgroundColor = System.Drawing.Color.SkyBlue;
-
-			PlatformSystem.Tick += new TickHandler(OnTick);
-			PlatformSystem.EventLoop();
-
-			Framework.Disconnect();
-			return 0;
+			_wnd = new GraphicsWindow("Test", 128, 128);
 		}
 
-		static void OnTick()
+		[TearDown]
+		public void Test_Teardown()
 		{
-			Framework.Tick();
+			_wnd.Dispose();
+		}
+
+		[Test]
+		public void CreatesDefaultCamera()
+		{
+			Assert.IsNotNull(_wnd.Camera, "No default camera");
 		}
 	}
 }

@@ -45,5 +45,15 @@ namespace FlatFour.Graphics.Tests
 				Assert.IsNotNull(wnd);
 			}
 		}
+
+		[Test]
+		public void RegistersWithSubsystem()
+		{
+			using (GraphicsWindow wnd = new GraphicsWindow("Test Window", 128, 128))
+			{
+				Assert.AreEqual(1, GraphicsSystem.RenderTarget.Count);
+			}
+			Assert.AreEqual(0, GraphicsSystem.RenderTarget.Count);
+		}
 	}
 }

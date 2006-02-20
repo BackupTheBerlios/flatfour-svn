@@ -1,5 +1,5 @@
 #region BSD License
-/* Flat Four Bootstrapper - Bootstrap.cs
+/* FlatFour.Graphics - RenderTarget.cs
  * Copyright (c) 2001-2006 Jason Perkins.
  * All rights reserved.
  * 
@@ -14,29 +14,11 @@
 #endregion
 
 using System;
-using System.Diagnostics;
-using FlatFour.Platform;
-using FlatFour.Graphics;
 
-namespace FlatFour.Bootstrapper
+namespace FlatFour.Graphics
 {
-	public class Bootstrap
+	public interface IRenderTarget : IDisposable
 	{
-		static int Main(string[] args)
-		{
-			GraphicsWindow wnd = new GraphicsWindow("Test Window", 640, 480);
-			wnd.Camera.BackgroundColor = System.Drawing.Color.SkyBlue;
-
-			PlatformSystem.Tick += new TickHandler(OnTick);
-			PlatformSystem.EventLoop();
-
-			Framework.Disconnect();
-			return 0;
-		}
-
-		static void OnTick()
-		{
-			Framework.Tick();
-		}
+		Camera Camera { get; set; }
 	}
 }
