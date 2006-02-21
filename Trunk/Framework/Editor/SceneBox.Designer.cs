@@ -1,5 +1,5 @@
 #region BSD License
-/* Flat Four Editor - Program.cs
+/* Flat Four Editor - SceneBox.Designer.cs
  * Copyright (c) 2001-2006 Jason Perkins.
  * All rights reserved.
  * 
@@ -13,19 +13,28 @@
  * files LICENSE.txt for more details. */
 #endregion
 
-using System;
-using System.Windows.Forms;
-
 namespace Editor
 {
-	static class Program
+	partial class SceneBox
 	{
-		[STAThread]
-		static void Main()
+		private System.ComponentModel.IContainer components = null;
+
+		protected override void Dispose(bool disposing)
 		{
-			Application.EnableVisualStyles();
-			Application.SetCompatibleTextRenderingDefault(false);
-			Application.Run(new MainForm());
+			if (disposing && (components != null))
+			{
+				components.Dispose();
+			}
+			base.Dispose(disposing);
 		}
+
+		#region Component Designer generated code
+
+		private void InitializeComponent()
+		{
+			components = new System.ComponentModel.Container();
+		}
+
+		#endregion
 	}
 }

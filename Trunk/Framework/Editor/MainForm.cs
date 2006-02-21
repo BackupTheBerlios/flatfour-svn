@@ -14,6 +14,7 @@
 #endregion
 
 using System;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace Editor
@@ -23,6 +24,15 @@ namespace Editor
 		public MainForm()
 		{
 			InitializeComponent();
+
+			/* Add a view into the scene */
+			SceneBox scene = new SceneBox();
+			scene.Name = "scene";
+			scene.Dock = DockStyle.Fill;
+			scene.Location = new Point(0, 0);
+			scene.TabIndex = 0;
+			scene.TabStop = true;
+			Controls.Add(scene);
 		}
 	}
 }

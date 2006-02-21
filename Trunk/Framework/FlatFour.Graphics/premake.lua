@@ -9,6 +9,10 @@ package.links =
 	"GameGuts.NET"
 }
 
+if (not options["no-tests"]) then
+	table.insert(package.links, "System.Windows.Forms")
+end
+
 package.files = 
 {
 	matchrecursive("*.cs")

@@ -15,6 +15,7 @@
 
 using System;
 using System.Collections;
+using System.Drawing;
 using GameGuts;
 
 namespace FlatFour.Platform
@@ -22,8 +23,8 @@ namespace FlatFour.Platform
 	public class PlatformWindow : IDisposable
 	{
 		private IntPtr _window;
-		private int _width;
-		private int _height;
+		private Size _size;
+		private EventHandler _resize;
 
 		#region Setup and Teardown
 
@@ -39,8 +40,9 @@ namespace FlatFour.Platform
 				throw new FrameworkException();
 
 			/* Grab the sizes from the OS, in case my requested size wasn't possible */
-			_width = Toolkit.utGetWindowWidth(_window);
-			_height = Toolkit.utGetWindowHeight(_window);
+			_size = new Size();
+			_size.Width  = Toolkit.utGetWindowWidth(_window);
+			_size.Height = Toolkit.utGetWindowHeight(_window);
 
 			/* Add myself to the master list of windows */
 			_windows[_window] = this;
@@ -59,14 +61,6 @@ namespace FlatFour.Platform
 
 		#endregion
 
-		public void ResizeTo(int width, int height)
-		{
-			if (!Toolkit.utResizeWindow(_window, width, height))
-				throw new FrameworkException();
-			_width = Toolkit.utGetWindowWidth(_window);
-			_height = Toolkit.utGetWindowHeight(_window);
-		}
-
 		public IntPtr Handle
 		{
 			get 
@@ -76,15 +70,52 @@ namespace FlatFour.Platform
 			}
 		}
 
-		public int Width
-		{
-			get { return _width; }
-		}
-
 		public int Height
 		{
-			get { return _height; }
+			get 
+			{ 
+				return _size.Height; 
+			}
 		}
+
+		public Size Size
+		{
+			get
+			{
+				return _size;
+			}
+			set
+			{
+				if (!Toolkit.utResizeWindow(_window, value.Width, value.Height))
+					throw new FrameworkException();
+				_size.Width = Toolkit.utGetWindowWidth(_window);
+				_size.Height = Toolkit.utGetWindowHeight(_window);
+				if (_resize != null)
+					_resize(this, EventArgs.Empty);
+			}
+		}
+
+		public int Width
+		{
+			get 
+			{ 
+				return _size.Width; 
+			}
+		}
+
+
+		public event EventHandler Resize
+		{
+			add
+			{
+				_resize += value;
+			}
+			remove
+			{
+				_resize -= value;
+			}
+		}
+
 
 		#region Event Handling
 
@@ -103,17 +134,11 @@ namespace FlatFour.Platform
 				break;
 
 			case Toolkit.utEventKind.UT_EVENT_WINDOW_RESIZE:
-				wnd.OnResize(e.arg0, e.arg1);
+				wnd.Size = new Size(e.arg0, e.arg1);
 				break;
 			}
 		}
 		
-		private void OnResize(int width, int height)
-		{
-			_width = width;
-			_height = height;
-		}
-
 		#endregion
 	}
 }

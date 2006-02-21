@@ -43,14 +43,21 @@ namespace Editor
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.components = new System.ComponentModel.Container();
-#if !MONO			
+			this.SuspendLayout();
+			// 
+			// MainForm
+			// 
+			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-#endif			
-			this.Text = "Form1";
+			this.ClientSize = new System.Drawing.Size(292, 273);
+			this.Name = "MainForm";
+			this.Text = "Flat Four Framework Editor";
+			this.ResumeLayout(false);
+
 		}
 
 		#endregion
+
 	}
 }
 

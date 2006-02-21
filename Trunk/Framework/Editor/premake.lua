@@ -6,15 +6,13 @@ package.language = "c#"
 package.links =
 {
 	"System.Drawing",
-	"System.Windows.Forms"
+	"System.Windows.Forms",
+	"FlatFour.Graphics"
 }
 
 package.files =
 {
 	matchrecursive("*.cs", "*.resx", "*.settings")
-	--matchfiles("*.cs"),
-	--matchfiles("Properties/AssemblyInfo.cs"),
-	--matchfiles("Properties/Resources.resx")
 }
 
 configure_package()

@@ -14,11 +14,63 @@
 #endregion
 
 using System;
+using GameGuts;
 
 namespace FlatFour.Graphics
 {
-	public interface IRenderTarget : IDisposable
+	/* Base class for rendering targets; manages the internal graphics
+	 * object handle and the attached camera */
+	public abstract class RenderTarget : IDisposable
 	{
-		Camera Camera { get; set; }
+		private IntPtr _handle;
+		private Camera _camera;
+
+		public RenderTarget()
+		{
+			_camera = new Camera();
+		}
+
+		/* Get/set the internal object handle. Automatically registers
+		 * this target with the graphics system so it can automatically
+		 * update it on calls to DrawFrame() */
+		protected IntPtr Handle
+		{
+			get
+			{
+				return _handle;
+			}
+			set
+			{
+				_handle = value;
+				if (_handle == IntPtr.Zero)
+					throw new FrameworkException();
+				GraphicsSystem.RenderTarget.Add(this);
+			}
+		}
+
+		/* Release the internal implementation object and deregister
+		 * the render target from the graphics system */
+		public virtual void Dispose()
+		{
+			if (_handle != IntPtr.Zero)
+			{
+				if (!Toolkit.utReleaseRenderTarget(_handle))
+					throw new FrameworkException();
+				_handle = IntPtr.Zero;
+				GraphicsSystem.RenderTarget.Remove(this);
+			}
+		}
+
+		public Camera Camera
+		{
+			get { return _camera; }
+			set { _camera = value; }
+		}
+
+		public void Swap()
+		{
+			if (!Toolkit.utSwapRenderTarget(_handle))
+				throw new FrameworkException();
+		}
 	}
 }

@@ -45,10 +45,8 @@ namespace FlatFour.Graphics.Tests
 		[Test]
 		public void CanClearAndSwap()
 		{
-			GraphicsSystem.BeginFrame();
-			GraphicsSystem.Clear(1.0f, 1.0f, 1.0f, 1.0f);
-			GraphicsSystem.EndFrame();
-			GraphicsSystem.Swap();
+			_wnd.Camera.BackgroundColor = Color.White;
+			GraphicsSystem.DrawFrame(_wnd);
 
 			Bitmap image = _wnd.GrabScreen();
 			Color color = image.GetPixel(1, 1);

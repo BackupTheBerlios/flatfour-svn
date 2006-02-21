@@ -4,6 +4,7 @@ package.language = "c#"
 
 package.links =
 {
+	"System.Drawing",
 	"GameGuts.NET"
 }
 

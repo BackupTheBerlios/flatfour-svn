@@ -1,12 +1,19 @@
-* Add AssemblyInfo.cs with CLSCompliant flag (also add tickler to packaging)
+* Refactor master list of platform windows to match master list of render targets
 
+* Editor unit tests
+
+* Bootstrap unit tests
+
+* Internationalize the editor
+
+* Add AssemblyInfo.cs with CLSCompliant flag to all assemblies, except maybe
+  the editor (also add tickler to packaging)
+  
 * The `start` parameter on utDraw() is unused.
 
 * Change texture formats to match Toolkit symbols
 
 * Can I remove utMatrix4 from Toolkit wrapper?
-
-* Remove empty Graphics folder from tests
 
 * Unit tests for SetMatrix() and SetTexture()
 
@@ -16,10 +23,7 @@
 * Popup window when exceptions are caught (sample base class)
 
 * Trace log should use \n\r on windows so it can be read in Notepad. Engine
-  messages are okay, but messages from the Toolkit are \n only.
-
-* Write message to log when closing window, etc.
-
-* Move .nunit file to tests directory if possible
+  messages are okay, but messages from the Toolkit are \n only. Maybe do a
+  Replace() on incoming text (how to detect platform EOL sequence?)
 
   

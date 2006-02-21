@@ -14,6 +14,8 @@
 #endregion
 
 using System;
+using System.Drawing;
+using System.Windows.Forms;
 using NUnit.Framework;
 
 namespace FlatFour.Graphics.Tests
@@ -42,7 +44,6 @@ namespace FlatFour.Graphics.Tests
 		{
 			using (GraphicsWindow wnd = new GraphicsWindow("Test Window", 128, 128))
 			{
-				Assert.IsNotNull(wnd);
 			}
 		}
 
@@ -54,6 +55,46 @@ namespace FlatFour.Graphics.Tests
 				Assert.AreEqual(1, GraphicsSystem.RenderTarget.Count);
 			}
 			Assert.AreEqual(0, GraphicsSystem.RenderTarget.Count);
+		}
+
+		private class TestForm : Form
+		{
+		}
+
+		[Test]
+		public void CanUseSystemWindow()
+		{
+			using (TestForm form = new TestForm())
+			{
+				form.Text = "Test Form";
+				form.Width = 256;
+				form.Height = 256;
+				form.Show();
+
+				using (GraphicsWindow wnd = new GraphicsWindow(form.Handle))
+				{
+					wnd.Camera.BackgroundColor = Color.White;
+					GraphicsSystem.DrawFrame();
+					Bitmap image = wnd.GrabScreen();
+					Color color = image.GetPixel(1, 1);
+					Assert.AreEqual(Color.FromArgb(0xff, 0xff, 0xff, 0xff), color);
+				}
+			}
+		}
+
+		[Test]
+		public void CanResizeWindow()
+		{
+			using (GraphicsWindow wnd = new GraphicsWindow("Test Window", 128, 128))
+			{
+				wnd.Camera.BackgroundColor = Color.White;
+				wnd.Size = new Size(256, 256);
+
+				GraphicsSystem.DrawFrame(wnd);
+				Bitmap image = wnd.GrabScreen();
+				Color color = image.GetPixel(250, 250);
+				Assert.AreEqual(Color.FromArgb(0xff, 0xff, 0xff, 0xff), color);
+			}
 		}
 	}
 }

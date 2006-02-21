@@ -69,11 +69,11 @@ namespace FlatFour.Graphics
 		/* To enable transparent multithreading, the graphics system must know
 		 * about all active render targets, so it knows what work needs to be
 		 * done each frame */
-		private static List<IRenderTarget> _targets;
+		private static List<RenderTarget> _targets;
 
 		private static void CreateRenderTargetList()
 		{
-			_targets = new List<IRenderTarget>();
+			_targets = new List<RenderTarget>();
 		}
 
 		private static void DisposeRenderTargetList()
@@ -84,7 +84,7 @@ namespace FlatFour.Graphics
 		}
 
 		/* Used by GraphicsWindow to add/remove targets */
-		internal static List<IRenderTarget> RenderTarget
+		internal static List<RenderTarget> RenderTarget
 		{
 			get { return _targets; }
 		}
@@ -97,21 +97,32 @@ namespace FlatFour.Graphics
 			DrawFrame();
 		}
 
-		internal static void DrawFrame()
+		public static void DrawFrame()
 		{
 			if (_targets.Count > 1)
 				throw new NotImplementedException("Multiple render targets are not supported yet");
 
 			BeginFrame();
-
-			foreach (IRenderTarget rt in _targets)
+			foreach (RenderTarget rt in _targets)
 			{
-				Color color = rt.Camera.BackgroundColor;
-				Clear(color.R / 255.0f, color.G / 255.0f, color.B / 255.0f, color.A / 255.0f);
+				DrawSingleTarget(rt);
 			}
-
 			EndFrame();
 			Swap();
+		}
+
+		public static void DrawFrame(RenderTarget rt)
+		{
+			BeginFrame();
+			DrawSingleTarget(rt);
+			EndFrame();
+			rt.Swap();
+		}
+
+		private static void DrawSingleTarget(RenderTarget rt)
+		{
+			Color color = rt.Camera.BackgroundColor;
+			Clear(color.R / 255.0f, color.G / 255.0f, color.B / 255.0f, color.A / 255.0f);
 		}
 
 

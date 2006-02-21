@@ -1,5 +1,5 @@
 #region BSD License
-/* Flat Four Editor - Program.cs
+/* Flat Four Editor - SceneBox.cs
  * Copyright (c) 2001-2006 Jason Perkins.
  * All rights reserved.
  * 
@@ -14,18 +14,34 @@
 #endregion
 
 using System;
+using System.Drawing;
 using System.Windows.Forms;
+using FlatFour.Graphics;
 
 namespace Editor
 {
-	static class Program
+	public partial class SceneBox : Control
 	{
-		[STAThread]
-		static void Main()
+		private GraphicsWindow _gfx;
+
+		public SceneBox()
 		{
-			Application.EnableVisualStyles();
-			Application.SetCompatibleTextRenderingDefault(false);
-			Application.Run(new MainForm());
+			InitializeComponent();
+			_gfx = new GraphicsWindow(this.Handle);
+			_gfx.Camera.BackgroundColor = Color.SkyBlue;
+
+			this.Resize += new EventHandler(SceneBox_Resize);
+		}
+
+		private void SceneBox_Resize(object sender, EventArgs e)
+		{
+			_gfx.Size = this.ClientSize;
+		}
+
+		protected override void OnPaint(PaintEventArgs pe)
+		{
+			GraphicsSystem.DrawFrame(_gfx);
+			base.OnPaint(pe);
 		}
 	}
 }
