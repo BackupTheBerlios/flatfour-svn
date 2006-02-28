@@ -19,7 +19,7 @@ using System.Windows.Forms;
 
 namespace Editor
 {
-	public partial class MainForm : Form
+    public partial class MainForm : Form
 	{
 		public MainForm()
 		{
@@ -28,8 +28,8 @@ namespace Editor
 			/* Add a view into the scene */
 			SceneBox scene = new SceneBox();
 			scene.Name = "scene";
-			scene.Dock = DockStyle.Fill;
-			scene.Location = new Point(0, 0);
+			scene.Dock = System.Windows.Forms.DockStyle.Fill;
+			scene.Location = new System.Drawing.Point(0, 0);
 			scene.TabIndex = 0;
 			scene.TabStop = true;
 			Controls.Add(scene);

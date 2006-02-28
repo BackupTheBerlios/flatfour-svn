@@ -27,10 +27,11 @@ namespace Editor
 		public SceneBox()
 		{
 			InitializeComponent();
-			_gfx = new GraphicsWindow(this.Handle);
-			_gfx.Camera.BackgroundColor = Color.SkyBlue;
 
-			this.Resize += new EventHandler(SceneBox_Resize);
+			_gfx = new FlatFour.Graphics.GraphicsWindow(this.Handle);
+			_gfx.Camera.BackgroundColor = System.Drawing.Color.SkyBlue;
+
+			this.Resize += new System.EventHandler(SceneBox_Resize);
 		}
 
 		private void SceneBox_Resize(object sender, EventArgs e)

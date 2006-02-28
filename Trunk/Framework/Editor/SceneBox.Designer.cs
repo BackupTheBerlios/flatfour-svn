@@ -15,7 +15,7 @@
 
 namespace Editor
 {
-	partial class SceneBox
+	public partial class SceneBox
 	{
 		private System.ComponentModel.IContainer components = null;
 
