@@ -56,13 +56,13 @@ namespace FlatFour.Graphics.Tests
 		[Test]
 		public void CanDrawSquare()
 		{
-			VertexBuffer vbuf = new VertexBuffer(VertexBufferTests.CUBE_VERTICES.Length);
-			vbuf.CopyData(VertexBufferTests.CUBE_VERTICES);
+			VertexBuffer vbuf = new VertexBuffer(Test_VertexBuffer.CUBE_VERTICES.Length);
+			vbuf.CopyData(Test_VertexBuffer.CUBE_VERTICES);
 
-			IndexBuffer ibuf = new IndexBuffer(IndexBufferTests.CUBE_INDICES.Length);
-			ibuf.CopyData(IndexBufferTests.CUBE_INDICES);
+			IndexBuffer ibuf = new IndexBuffer(Test_IndexBuffer.CUBE_INDICES.Length);
+			ibuf.CopyData(Test_IndexBuffer.CUBE_INDICES);
 
-			VertexFormat vfmt = new VertexFormat(VertexFormatTests.CUBE_ATTRIBUTES);
+			VertexFormat vfmt = new VertexFormat(Test_VertexFormat.CUBE_ATTRIBUTES);
 
 			GraphicsSystem.BeginFrame();
 			GraphicsSystem.Clear(0.0f, 0.0f, 0.0f, 0.0f);

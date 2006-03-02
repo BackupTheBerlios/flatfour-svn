@@ -24,6 +24,8 @@ namespace FlatFour.Graphics
 {
 	public static class GraphicsSystem
 	{
+		private static Visualizer _visualizer;
+
 		#region Setup and Shutdown
 
 		static GraphicsSystem()
@@ -32,6 +34,9 @@ namespace FlatFour.Graphics
 			Framework.Startup += new EventHandler(OnStartup);
 			Framework.Shutdown += new EventHandler(OnShutdown);
 			Framework.FrameUpdate += new EventHandler(OnTick);
+
+			_visualizer = new Visualizer();
+			Visualization.Visualizer = _visualizer;
 
 			CreateRenderTargetList();
 		}
@@ -91,6 +96,7 @@ namespace FlatFour.Graphics
 
 		#endregion
 
+		#region Draw Frame
 
 		private static void OnTick(object sender, EventArgs e)
 		{
@@ -104,9 +110,7 @@ namespace FlatFour.Graphics
 
 			BeginFrame();
 			foreach (RenderTarget rt in _targets)
-			{
 				DrawSingleTarget(rt);
-			}
 			EndFrame();
 			Swap();
 		}
@@ -123,12 +127,15 @@ namespace FlatFour.Graphics
 		{
 			Color color = rt.Camera.BackgroundColor;
 			Clear(color.R / 255.0f, color.G / 255.0f, color.B / 255.0f, color.A / 255.0f);
+
+			_visualizer.Flush();
 		}
 
+		#endregion
 
 		#region Immediate Rendering Routines
 
-		/* These routines are used by DrawFrame() internally, and are exposed
+		/* These routines are used by DrawFrame()internally, and are exposed
 		 * internally for the unit tests */
 
 		internal static void BeginFrame()
@@ -160,6 +167,10 @@ namespace FlatFour.Graphics
 			if (!Toolkit.utSwapAllRenderTargets())
 				throw new FrameworkException();
 		}
+
+		#endregion
+
+		#region Debug Visuals
 
 		#endregion
 	}

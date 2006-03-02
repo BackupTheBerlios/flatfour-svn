@@ -20,7 +20,7 @@ using NUnit.Framework;
 namespace FlatFour.Graphics.Tests
 {
 	[TestFixture]
-	public class VertexFormatTests
+	public class Test_VertexFormat
 	{
 		public static readonly VertexAttribute[] CUBE_ATTRIBUTES = 
 			{

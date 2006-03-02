@@ -1,5 +1,5 @@
 #region BSD License
-/* FlatFour.Graphics.Tests - Test_IndexBuffer.cs
+/* FlatFour.Graphics.Tests - Test_Visualizations.cs
  * Copyright (c) 2001-2006 Jason Perkins.
  * All rights reserved.
  * 
@@ -20,45 +20,40 @@ using NUnit.Framework;
 namespace FlatFour.Graphics.Tests
 {
 	[TestFixture]
-	public class Test_IndexBuffer
+	public class Test_Visualizations
 	{
-		public static readonly int[] CUBE_INDICES = 
-			{
-				0, 1, 2,
-				0, 2, 3
-			};
-
-		private IndexBuffer _buf;
+		GraphicsWindow _wnd;
 
 		#region Setup and Teardown
 
 		[SetUp]
 		public void Test_Setup()
 		{
-			GraphicsSystem.EnsureReady();
 			Framework.Connect();
-			_buf = new IndexBuffer(CUBE_INDICES.Length);
+			_wnd = new GraphicsWindow("", 128, 128);
 		}
 
 		[TearDown]
 		public void Test_Teardown()
 		{
-			_buf.Dispose();
+			_wnd.Dispose();
 			Framework.Disconnect();
 		}
-		
+
 		#endregion
 
 		[Test]
-		public void CanCreate()
+		public void CanDrawLines()
 		{
-			Assert.IsNotNull(_buf);
-		}
+			Vector3 p0 = new Vector3(-0.5f, 0.0f, 0.0f);
+			Vector3 p1 = new Vector3( 0.5f, 0.0f, 0.0f);
+			Visualization.DrawLine(p0, p1);
 
-		[Test]
-		public void CanCopyData()
-		{
-			_buf.CopyData(CUBE_INDICES);
+			GraphicsSystem.DrawFrame();
+
+			Bitmap image = _wnd.GrabScreen();
+			Color color = image.GetPixel(63, 63);
+			Assert.AreEqual(Color.FromArgb(0xff, 0xff, 0xff, 0xff), color);
 		}
 	}
 }
