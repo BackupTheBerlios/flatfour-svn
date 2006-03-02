@@ -28,7 +28,16 @@ namespace Editor
 		{
 			InitializeComponent();
 
-			_gfx = new FlatFour.Graphics.GraphicsWindow(this.Handle);
+			System.Type xplatui = System.Type.GetType("System.Windows.Forms.XplatUIX11, System.Windows.Forms");
+			if (xplatui != null)
+			{
+				System.IntPtr display = (System.IntPtr)xplatui.GetField("DisplayHandle", System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic).GetValue(null);
+				_gfx = new FlatFour.Graphics.GraphicsWindow(display, this.Handle);
+			}
+			else
+			{
+				_gfx = new FlatFour.Graphics.GraphicsWindow(this.Handle);
+			}
 			_gfx.Camera.BackgroundColor = System.Drawing.Color.SkyBlue;
 
 			this.Resize += new System.EventHandler(SceneBox_Resize);

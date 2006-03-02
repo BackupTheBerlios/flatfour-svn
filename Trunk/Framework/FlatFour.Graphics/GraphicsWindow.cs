@@ -37,19 +37,24 @@ namespace FlatFour.Graphics
 		public GraphicsWindow(string title, int width, int height)
 		{
 			_window = new PlatformWindow(title, width, height);
-			CreateFromWindowHandle(_window.Handle);
+			CreateFromWindowHandle(IntPtr.Zero, _window.Handle);
 			_window.Resize += new EventHandler(OnResize);
 		}
 
 		/* Attach graphics to an existing window */
 		public GraphicsWindow(IntPtr windowHandle)
 		{
-			CreateFromWindowHandle(windowHandle);
+			CreateFromWindowHandle(IntPtr.Zero, windowHandle);
+		}
+		
+		public GraphicsWindow(IntPtr display, IntPtr windowHandle)
+		{
+			CreateFromWindowHandle(display, windowHandle);
 		}
 
-		private void CreateFromWindowHandle(IntPtr windowHandle)
+		private void CreateFromWindowHandle(IntPtr display, IntPtr windowHandle)
 		{
-			base.Handle = Toolkit.utCreateWindowTarget(windowHandle);
+			base.Handle = Toolkit.utCreateWindowTarget(display, windowHandle);
 
 			_size = new Size();
 			_size.Width  = Toolkit.utGetTargetWidth(Handle);
