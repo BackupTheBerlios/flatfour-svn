@@ -96,6 +96,42 @@ namespace FlatFour.Graphics
 
 		#endregion
 
+		#region Render States
+
+		private static bool _lighting;
+		private static Texture _texture;
+
+		public static bool Lighting
+		{
+			get
+			{
+				return _lighting;
+			}
+			set
+			{
+				if (!Toolkit.utSetRenderState(Toolkit.utRenderState.UT_RS_LIGHTING, value))
+					throw new FrameworkException();
+				_lighting = value;
+			}
+		}
+
+		public static Texture Texture
+		{
+			get
+			{
+				return _texture;
+			}
+			set
+			{
+				IntPtr handle = (value != null) ? value.Handle : IntPtr.Zero;
+				if (!Toolkit.utSetTexture(0, handle))
+					throw new FrameworkException();
+				_texture = value;
+			}
+		}
+
+		#endregion
+
 		#region Draw Frame
 
 		private static void OnTick(object sender, EventArgs e)
@@ -128,6 +164,7 @@ namespace FlatFour.Graphics
 			Color color = rt.Camera.BackgroundColor;
 			Clear(color.R / 255.0f, color.G / 255.0f, color.B / 255.0f, color.A / 255.0f);
 
+			/* Draw data visualizations over the top of the scene */
 			_visualizer.Flush();
 		}
 
@@ -167,10 +204,6 @@ namespace FlatFour.Graphics
 			if (!Toolkit.utSwapAllRenderTargets())
 				throw new FrameworkException();
 		}
-
-		#endregion
-
-		#region Debug Visuals
 
 		#endregion
 	}

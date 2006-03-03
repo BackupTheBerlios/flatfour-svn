@@ -50,6 +50,7 @@ namespace FlatFour.Graphics.Tests
 			Visualization.DrawLine(p0, p1);
 
 			GraphicsSystem.DrawFrame();
+			Console.ReadLine();
 
 			Bitmap image = _wnd.GrabScreen();
 			Color color = image.GetPixel(63, 63);
