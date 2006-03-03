@@ -83,7 +83,7 @@ namespace FlatFour.Graphics
 			}
 		}
 
-		public Size Size
+		public override Size Size
 		{
 			get
 			{

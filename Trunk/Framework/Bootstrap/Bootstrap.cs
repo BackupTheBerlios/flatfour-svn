@@ -22,10 +22,16 @@ namespace FlatFour.Bootstrapper
 {
 	public class Bootstrap
 	{
+		static float _angle = 0.0f;
+		static Pose _pose = new Pose();
+		static FlatFour.Collision.BoxVisualizer _box = new FlatFour.Collision.BoxVisualizer();
+
 		static int Main(string[] args)
 		{
 			GraphicsWindow wnd = new GraphicsWindow("Test Window", 640, 480);
 			wnd.Camera.BackgroundColor = System.Drawing.Color.SkyBlue;
+
+			_pose.Position = new Position(0.5, -0.5, -2.0);
 
 			PlatformSystem.Tick += new TickHandler(OnTick);
 			PlatformSystem.EventLoop();
@@ -36,6 +42,10 @@ namespace FlatFour.Bootstrapper
 
 		static void OnTick()
 		{
+			_pose.Orientation = Quaternion.FromAngleAxis(_angle, 0.0f, 1.0f, 0.0f);
+			_angle += 1.0f * Framework.FrameInterval;
+
+			_box.Draw(_pose);
 			Framework.Tick();
 		}
 	}

@@ -20,17 +20,23 @@ namespace FlatFour.Graphics
 {
 	public class Camera
 	{
-		private Color _backgroundColor;
+		public Color BackgroundColor;
+		public Position Position;
+		public Position Target;
 
 		public Camera()
 		{
-			_backgroundColor = Color.Black;
+			BackgroundColor = Color.Black;
 		}
 
-		public Color BackgroundColor
+		/* Called by GraphicsSystem at the start of a new frame */
+		internal void ApplySettings(RenderTarget target)
 		{
-			get { return _backgroundColor; }
-			set { _backgroundColor = value; }
+			Size size = target.Size;
+			float aspect = (float)size.Width / (float)size.Height;
+			GraphicsSystem.ProjectionMatrix = Matrix4.Projection(1.0f, aspect, 0.1f, 100.0f);
+
+			GraphicsSystem.Clear(BackgroundColor);
 		}
 	}
 }

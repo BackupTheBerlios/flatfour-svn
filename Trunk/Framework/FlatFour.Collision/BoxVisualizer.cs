@@ -1,5 +1,5 @@
 #region BSD License
-/* FlatFour - Visualizer.cs
+/* FlatFour.Collision - BoxVisualizer.cs
  * Copyright (c) 2001-2006 Jason Perkins.
  * All rights reserved.
  * 
@@ -15,12 +15,14 @@
 
 using System;
 
-namespace FlatFour
+namespace FlatFour.Collision
 {
-	public interface IVisualizer
+	public class BoxVisualizer : Visualization
 	{
-		void DrawLine(Position p0, Position p1);
-		void DrawPoint(Position p);
-		void Swap();
+		public void Draw(Pose pose)
+		{
+			DrawPoint(pose, 0.0f, 0.0f, 0.0f);
+			DrawBox(pose, 1.0f, 0.5f, 0.75f);
+		}
 	}
 }

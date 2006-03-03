@@ -1,6 +1,6 @@
 #region BSD License
-/* FlatFour - Visualizer.cs
- * Copyright (c) 2001-2006 Jason Perkins.
+/* FlatFour - Pose.cs
+ * Copyright (c) 2001-2005 Jason Perkins.
  * All rights reserved.
  * 
  * This library is free software; you can redistribute it and/or
@@ -17,10 +17,15 @@ using System;
 
 namespace FlatFour
 {
-	public interface IVisualizer
+	public class Pose
 	{
-		void DrawLine(Position p0, Position p1);
-		void DrawPoint(Position p);
-		void Swap();
+		public Position Position;
+		public Quaternion Orientation;
+
+		public Pose()
+		{
+			Position = Position.Zero;
+			Orientation = Quaternion.Identity;
+		}
 	}
 }

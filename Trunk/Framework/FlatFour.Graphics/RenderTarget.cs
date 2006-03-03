@@ -67,6 +67,12 @@ namespace FlatFour.Graphics
 			set { _camera = value; }
 		}
 
+		public abstract System.Drawing.Size Size
+		{
+			get;
+			set;
+		}
+
 		public void Swap()
 		{
 			if (!Toolkit.utSwapRenderTarget(_handle))

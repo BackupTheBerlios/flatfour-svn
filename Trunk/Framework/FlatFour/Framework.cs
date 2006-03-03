@@ -208,6 +208,9 @@ namespace FlatFour
 					_fixedTotal += _fixedInterval;
 				}
 			}
+			
+			/* Send queued visualizations to the renderer for the next frame */
+			Visualization.Swap();
 
 			/* Run a frame update */
 			if (FrameUpdate != null)

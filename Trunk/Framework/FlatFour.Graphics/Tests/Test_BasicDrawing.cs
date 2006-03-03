@@ -65,7 +65,7 @@ namespace FlatFour.Graphics.Tests
 			VertexFormat vfmt = new VertexFormat(Test_VertexFormat.CUBE_ATTRIBUTES);
 
 			GraphicsSystem.BeginFrame();
-			GraphicsSystem.Clear(0.0f, 0.0f, 0.0f, 0.0f);
+			GraphicsSystem.Clear(Color.Black);
 			GraphicsSystem.Draw(vbuf, vfmt, ibuf);
 			GraphicsSystem.EndFrame();
 			GraphicsSystem.Swap();

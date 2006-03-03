@@ -99,7 +99,9 @@ namespace FlatFour.Graphics
 		#region Render States
 
 		private static bool _lighting;
+		private static Matrix4 _projectionMatrix;
 		private static Texture _texture;
+		private static Matrix4 _viewMatrix;
 
 		public static bool Lighting
 		{
@@ -115,6 +117,20 @@ namespace FlatFour.Graphics
 			}
 		}
 
+		public static Matrix4 ProjectionMatrix
+		{
+			get
+			{
+				return _projectionMatrix;
+			}
+			set
+			{
+				if (!Toolkit.utSetRenderMatrix(Toolkit.utRenderMatrix.UT_MATRIX_PROJECTION, ref value.M00))
+					throw new FrameworkException();
+				_projectionMatrix = value;
+			}
+		}
+
 		public static Texture Texture
 		{
 			get
@@ -127,6 +143,20 @@ namespace FlatFour.Graphics
 				if (!Toolkit.utSetTexture(0, handle))
 					throw new FrameworkException();
 				_texture = value;
+			}
+		}
+
+		public static Matrix4 ViewMatrix
+		{
+			get
+			{
+				return _viewMatrix;
+			}
+			set
+			{
+				if (!Toolkit.utSetRenderMatrix(Toolkit.utRenderMatrix.UT_MATRIX_VIEW, ref value.M00))
+					throw new FrameworkException();
+				_viewMatrix = value;
 			}
 		}
 
@@ -161,11 +191,11 @@ namespace FlatFour.Graphics
 
 		private static void DrawSingleTarget(RenderTarget rt)
 		{
-			Color color = rt.Camera.BackgroundColor;
-			Clear(color.R / 255.0f, color.G / 255.0f, color.B / 255.0f, color.A / 255.0f);
+			/* Apply the camera settings */
+			rt.Camera.ApplySettings(rt);
 
 			/* Draw data visualizations over the top of the scene */
-			_visualizer.Flush();
+			_visualizer.Flush(rt.Camera);
 		}
 
 		#endregion
@@ -181,9 +211,9 @@ namespace FlatFour.Graphics
 				throw new FrameworkException();
 		}
 
-		internal static void Clear(float red, float green, float blue, float alpha)
+		internal static void Clear(Color color)
 		{
-			if (!Toolkit.utClear(red, green, blue, alpha))
+			if (!Toolkit.utClear(color.R / 255.0f, color.G / 255.0f, color.B / 255.0f, color.A / 255.0f))
 				throw new FrameworkException();
 		}
 

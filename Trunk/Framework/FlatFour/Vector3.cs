@@ -23,8 +23,17 @@ namespace FlatFour
 	{
 		public float X, Y, Z;
 
-		private static readonly Vector3 Zero = new Vector3(0.0f, 0.0f, 0.0f);
+		public static readonly Vector3 Zero = new Vector3(0.0f, 0.0f, 0.0f);
 
+
+		public static Vector3 Create(float x, float y, float z)
+		{
+			Vector3 v;
+			v.X = x;
+			v.Y = y;
+			v.Z = z;
+			return v;
+		}
 
 		public Vector3(float x, float y, float z)
 		{
