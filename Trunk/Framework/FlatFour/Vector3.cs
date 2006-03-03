@@ -23,7 +23,7 @@ namespace FlatFour
 	{
 		public float X, Y, Z;
 
-		private static readonly Vector3 _zero = new Vector3(0,0,0);
+		private static readonly Vector3 Zero = new Vector3(0.0f, 0.0f, 0.0f);
 
 
 		public Vector3(float x, float y, float z)
@@ -148,12 +148,5 @@ namespace FlatFour
 			string result = "{" + X + ", " + Y + ", " + Z + "}";
 			return result;
 		}
-
-
-		public static Vector3 Zero
-		{
-			get { return _zero; }
-		}
-
 	}
 }

@@ -1,5 +1,5 @@
 #region BSD License
-/* FlatFour.Platform - AssemblyInfo.cs
+/* FlatFour.Dynamics - AssemblyInfo.cs
  * Copyright (c) 2001-2005 Jason Perkins.
  * All rights reserved.
  * 
@@ -17,8 +17,8 @@ using System;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
-[assembly: AssemblyTitle("FlatFour.Platform")]
-[assembly: AssemblyDescription("Flat Four Framework Platform Subsystem")]
+[assembly: AssemblyTitle("FlatFour.Dynamics")]
+[assembly: AssemblyDescription("Flat Four Framework Dynamics Subsystem")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Sim8")]
 [assembly: AssemblyProduct("Flat Four Framework")]

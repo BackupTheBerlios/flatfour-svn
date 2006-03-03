@@ -22,7 +22,7 @@ using System.Runtime.CompilerServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Sim8")]
 [assembly: AssemblyProduct("Flat Four Framework")]
-[assembly: AssemblyCopyright("(C) 2001-@YEAR@ by Sim8")]
+[assembly: AssemblyCopyright("(C) 2001-2006 by Sim8")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]		
 

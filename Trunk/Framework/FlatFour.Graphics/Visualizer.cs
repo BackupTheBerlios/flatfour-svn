@@ -22,16 +22,12 @@ namespace FlatFour.Graphics
 {
 	class Visualizer : IVisualizer
 	{
-		private List<float> _lines = new List<float>();
+		private List<Vector3> _lines = new List<Vector3>();
 
 		public void DrawLine(Vector3 p0, Vector3 p1)
 		{
-			_lines.Add(p0.X);
-			_lines.Add(p0.Y);
-			_lines.Add(p0.Z);
-			_lines.Add(p1.X);
-			_lines.Add(p1.Y);
-			_lines.Add(p1.Z);
+			_lines.Add(p0);
+			_lines.Add(p1);
 		}
 
 		public void Flush()
@@ -41,9 +37,14 @@ namespace FlatFour.Graphics
 			GraphicsSystem.Lighting = false;
 			GraphicsSystem.Texture = null;
 
-			float[] verts = _lines.ToArray();
-			if (!Toolkit.utDrawLines(verts, _lines.Count / 2))
-				throw new FrameworkException();
+			/* Do I really need to convert to an array? I can't figure out
+			 * how to make C# give me the address of the first item */
+			if (_lines.Count > 0)
+			{
+				Vector3[] verts = _lines.ToArray();
+				if (!Toolkit.utDrawLines(ref verts[0].X, verts.Length))
+					throw new FrameworkException();
+			}
 		}
 	}
 }

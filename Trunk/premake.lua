@@ -4,6 +4,8 @@ project.name = "FlatFour"
 -- Build Options 
 
 	addoption("no-bootstrap", "Exclude bootstrap application")
+	addoption("no-collision", "Exclude the collision subsystem")
+	addoption("no-dynamics",  "Exclude the dynamics subsystem")
 	addoption("no-editor",    "Exclude the editor application")
 	addoption("no-graphics",  "Exclude graphics subsystem")
 	addoption("no-platform",  "Exclude platform abstraction subsystem")
@@ -46,6 +48,14 @@ project.name = "FlatFour"
 	
 	dopackage("Framework/FlatFour")
 
+	if (not options["no-collision"]) then
+		dopackage("Framework/FlatFour.Collision")
+	end
+	
+	if (not options["no-dynamics"]) then
+		dopackage("Framework/FlatFour.Dynamics")
+	end
+	
 	if (not options["no-graphics"]) then
 		dopackage("Framework/FlatFour.Graphics")
 	end
