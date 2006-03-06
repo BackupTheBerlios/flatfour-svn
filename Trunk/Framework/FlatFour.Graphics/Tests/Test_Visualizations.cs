@@ -45,8 +45,8 @@ namespace FlatFour.Graphics.Tests
 		[Test]
 		public void CanDrawLines()
 		{
-			Position p0 = new Position(-0.5f, 0.0f, 0.0f);
-			Position p1 = new Position( 0.5f, 0.0f, 0.0f);
+			Position p0 = new Position(-1.5f, 0.0f, -1.0f);
+			Position p1 = new Position( 1.5f, 0.0f, -1.0f);
 			Visualization.DrawLine(p0, p1);
 
 			GraphicsSystem.DrawFrame();

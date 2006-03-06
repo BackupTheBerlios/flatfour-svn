@@ -8,9 +8,9 @@ project.name = "FlatFour"
 	addoption("no-dynamics",  "Exclude the dynamics subsystem")
 	addoption("no-editor",    "Exclude the editor application")
 	addoption("no-graphics",  "Exclude graphics subsystem")
+	addoption("with-libs",    "Include C++ support libraries (available separately)")
 	addoption("no-platform",  "Exclude platform abstraction subsystem")
 	addoption("no-tests",     "Exclude unit tests")
-	addoption("with-toolkit", "Include GameGuts in build (separate download)")
 
 
 -- Project-wide settings
@@ -26,9 +26,9 @@ project.name = "FlatFour"
 	
 -- Let the user customize their own build environment
 
-	-- if (os.fileexists("user.lua")) then
-	--	dofile("user.lua")
-	-- end
+	if (os.fileexists("user.lua")) then
+		dofile("user.lua")
+	end
 
 
 -- Packages
@@ -41,9 +41,15 @@ project.name = "FlatFour"
 		dopackage("Framework/Bootstrap")
 	end
 
-	if (options["with-toolkit"]) then
+	if (options["with-libs"]) then
 		dopackage("Framework/Libs/GameGuts/code/toolkit")
 		dopackage("Framework/Libs/GameGuts/bindings/dotnet")
+
+		options["dll"] = 1
+		dopackage("Framework/Libs/ode/contrib/Premake/ode.lua")
+		package.path = "Framework/Libs/ode/ode"
+		dopackage("Framework/Libs/ode/contrib/Premake/dotnet.lua")
+		package.path = "Framework/Libs/ode/contrib/DotNet"
 	end
 	
 	dopackage("Framework/FlatFour")
