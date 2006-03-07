@@ -14,12 +14,59 @@
 #endregion
 
 using System;
+using System.Collections;
+using System.Reflection;
 
 namespace FlatFour
 {
 	public class Visualization
 	{
 		private static IVisualizer _visualizer;
+		private static Hashtable _visualizations;
+
+		static Visualization()
+		{
+			_visualizations = new Hashtable();
+		}
+
+
+		/* Enable a visualization */
+		public static void Add(string typename)
+		{
+			Visualization viz = (Visualization)Framework.CreateInstance(typename);
+#if OBSOLETE
+			/* Add this visualization for all types it supports */
+			foreach (MethodInfo method in viz.GetType().GetMethods())
+			{
+				if (method.Name == "Draw")
+				{
+					ParameterInfo[] parms = method.GetParameters();
+					if (parms.Length == 1)
+					{
+						Type type = parms[0].GetType();
+						if (type.IsSubclassOf(typeof(Behavior)))
+						{
+							ArrayList list = _visualizations[type];
+							if (list == null)
+							{
+								list = new ArrayList();
+								_visualizations.Add(type, list);
+							}
+							list.Add(
+							
+						}
+					}
+				}
+			}
+
+			_visualizations.Add(viz);	
+#endif
+		}
+
+		/* Draw visualizations for a particular actor */
+		public static void Draw()
+		{
+		}
 
 		/* Draw an axis-aligned box located at the origin */
 		public static void DrawBox(Pose pose, float xLength, float yLength, float zLength)

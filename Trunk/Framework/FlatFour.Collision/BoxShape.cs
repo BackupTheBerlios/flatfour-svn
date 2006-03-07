@@ -1,5 +1,5 @@
 #region BSD License
-/* FlatFour.Collision - BoxVisualizer.cs
+/* FlatFour.Collision - BoxShape.cs
  * Copyright (c) 2001-2006 Jason Perkins.
  * All rights reserved.
  * 
@@ -14,17 +14,12 @@
 #endregion
 
 using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace FlatFour.Collision
 {
-	public class BoxVisualizer : Visualization
+	class BoxShape : Internals.ShapeBase
 	{
-		public void Draw(Internals.ShapeBase shape)
-		{
-			Pose pose = new Pose();
-
-			DrawPoint(pose, 0.0f, 0.0f, 0.0f);
-			DrawBox(pose, 1.0f, 0.5f, 0.75f);
-		}
 	}
 }

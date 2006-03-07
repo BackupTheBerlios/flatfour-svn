@@ -1,3 +1,6 @@
+* Add Dispatcher.Remove() ... compare to delegate.Target and remove if it
+  matches the given instance. Also, can I use WeakDelegates? Should I?
+
 * Refactor master list of platform windows to match master list of render targets
 
 * Editor unit tests

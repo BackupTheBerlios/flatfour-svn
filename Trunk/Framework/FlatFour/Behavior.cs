@@ -1,5 +1,5 @@
 #region BSD License
-/* FlatFour.Collision - BoxVisualizer.cs
+/* FlatFour - Behavior.cs
  * Copyright (c) 2001-2006 Jason Perkins.
  * All rights reserved.
  * 
@@ -15,16 +15,9 @@
 
 using System;
 
-namespace FlatFour.Collision
+namespace FlatFour
 {
-	public class BoxVisualizer : Visualization
+	public abstract class Behavior
 	{
-		public void Draw(Internals.ShapeBase shape)
-		{
-			Pose pose = new Pose();
-
-			DrawPoint(pose, 0.0f, 0.0f, 0.0f);
-			DrawBox(pose, 1.0f, 0.5f, 0.75f);
-		}
 	}
 }

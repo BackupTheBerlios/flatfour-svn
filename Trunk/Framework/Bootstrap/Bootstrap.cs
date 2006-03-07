@@ -22,10 +22,32 @@ namespace FlatFour.Bootstrapper
 {
 	public class Bootstrap
 	{
+		class MyBehavior : Behavior
+		{
+		}
+
+		class MyHandler1
+		{
+			public void Handle(MyBehavior b)
+			{
+				Trace.WriteLine("MyHandler1");
+			}
+		}
+
+		class MyHandler2
+		{
+			public void Handle(MyBehavior b)
+			{
+				Trace.WriteLine("MyHandler2");
+			}
+		}
+
 		static int Main(string[] args)
 		{
 			GraphicsWindow wnd = new GraphicsWindow("Test Window", 640, 480);
 			wnd.Camera.BackgroundColor = System.Drawing.Color.SkyBlue;
+
+			Visualization.Add("FlatFour.Collision.BoxVisualizer");
 
 			PlatformSystem.Tick += new TickHandler(OnTick);
 			PlatformSystem.EventLoop();

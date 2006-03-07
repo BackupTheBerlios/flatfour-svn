@@ -3,12 +3,12 @@ project.name = "FlatFour"
 
 -- Build Options 
 
+	addoption("with-libs",    "Include C++ support libraries (available separately)")
 	addoption("no-bootstrap", "Exclude bootstrap application")
 	addoption("no-collision", "Exclude the collision subsystem")
 	addoption("no-dynamics",  "Exclude the dynamics subsystem")
 	addoption("no-editor",    "Exclude the editor application")
 	addoption("no-graphics",  "Exclude graphics subsystem")
-	addoption("with-libs",    "Include C++ support libraries (available separately)")
 	addoption("no-platform",  "Exclude platform abstraction subsystem")
 	addoption("no-tests",     "Exclude unit tests")
 

@@ -15,6 +15,7 @@
 
 using System;
 using System.Diagnostics;
+using System.Reflection;
 
 namespace FlatFour
 {
@@ -218,5 +219,32 @@ namespace FlatFour
 		}
 
 		#endregion
+
+		public static object CreateInstance(string typeName)
+		{
+			/* Split into namespace and type names */
+			int split = typeName.LastIndexOf('.');
+			if (split <= 0)
+				throw new ArgumentException("Must specify a namespace");
+
+			string assembly = typeName.Substring(0, split);
+			return CreateInstance(assembly, typeName);
+		}
+
+		private static object CreateInstance(string assemblyName, string typeName)
+		{
+			Assembly assembly = Assembly.LoadFrom(assemblyName + ".dll");
+			Type type = assembly.GetType(typeName);
+			if (type != null)
+				return Activator.CreateInstance(type);
+
+			/* Not found...trim off last bit of namespace and try again */
+			int split = assemblyName.LastIndexOf('.');
+			if (split <= 0)
+				throw new TypeLoadException("Type " + typeName + " not found");
+
+			assemblyName = assemblyName.Substring(0, split);
+			return CreateInstance(assemblyName, typeName);
+		}
 	}
 }
