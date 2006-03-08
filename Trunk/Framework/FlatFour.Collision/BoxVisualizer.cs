@@ -19,12 +19,12 @@ namespace FlatFour.Collision
 {
 	public class BoxVisualizer : Visualization
 	{
-		public void Draw(Internals.ShapeBase shape)
+		public void Draw(BoxShape shape)
 		{
 			Pose pose = new Pose();
 
-			DrawPoint(pose, 0.0f, 0.0f, 0.0f);
-			DrawBox(pose, 1.0f, 0.5f, 0.75f);
+			Vector3 lengths = shape.Lengths;
+			DrawBox(pose, lengths.X, lengths.Y, lengths.Z);
 		}
 	}
 }

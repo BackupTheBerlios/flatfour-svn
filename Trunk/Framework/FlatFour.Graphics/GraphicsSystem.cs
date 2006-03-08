@@ -36,7 +36,7 @@ namespace FlatFour.Graphics
 			Framework.FrameUpdate += new EventHandler(OnTick);
 
 			_visualizer = new Visualizer();
-			Visualization.Visualizer = _visualizer;
+			Visualization.Renderer = _visualizer;
 
 			CreateRenderTargetList();
 		}

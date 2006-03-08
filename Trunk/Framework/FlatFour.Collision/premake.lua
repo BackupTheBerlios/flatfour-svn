@@ -4,7 +4,7 @@ package.language = "c#"
 
 package.links = 
 {
-	"GameGuts.NET"
+	"ODE.NET"
 }
 
 package.files = 

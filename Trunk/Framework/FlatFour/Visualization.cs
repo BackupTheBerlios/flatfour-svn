@@ -21,12 +21,12 @@ namespace FlatFour
 {
 	public class Visualization
 	{
-		private static IVisualizer _visualizer;
-		private static Hashtable _visualizations;
+		private static Dispatcher<Behavior> _visualizers;
+		private static IVisualizer _renderer;
 
 		static Visualization()
 		{
-			_visualizations = new Hashtable();
+			_visualizers = new Dispatcher<Behavior>();
 		}
 
 
@@ -34,38 +34,13 @@ namespace FlatFour
 		public static void Add(string typename)
 		{
 			Visualization viz = (Visualization)Framework.CreateInstance(typename);
-#if OBSOLETE
-			/* Add this visualization for all types it supports */
-			foreach (MethodInfo method in viz.GetType().GetMethods())
-			{
-				if (method.Name == "Draw")
-				{
-					ParameterInfo[] parms = method.GetParameters();
-					if (parms.Length == 1)
-					{
-						Type type = parms[0].GetType();
-						if (type.IsSubclassOf(typeof(Behavior)))
-						{
-							ArrayList list = _visualizations[type];
-							if (list == null)
-							{
-								list = new ArrayList();
-								_visualizations.Add(type, list);
-							}
-							list.Add(
-							
-						}
-					}
-				}
-			}
-
-			_visualizations.Add(viz);	
-#endif
+			_visualizers.Add(viz);
 		}
 
 		/* Draw visualizations for a particular actor */
-		public static void Draw()
+		public static void Draw(Behavior behavior)
 		{
+			_visualizers.Dispatch(behavior);
 		}
 
 		/* Draw an axis-aligned box located at the origin */
@@ -80,7 +55,7 @@ namespace FlatFour
 		/* Draw an axis-aligned box off the origin*/
 		public static void DrawBox(Pose pose, Vector3 min, Vector3 max)
 		{
-			if (_visualizer != null)
+			if (_renderer != null)
 			{
 				Position p0 = pose.Orientation * min + pose.Position;
 				Position p1 = pose.Orientation * Vector3.Create(max.X, min.Y, min.Z) + pose.Position;
@@ -113,24 +88,24 @@ namespace FlatFour
 
 		public static void DrawLine(Position p0, Position p1)
 		{
-			if (_visualizer != null)
-				_visualizer.DrawLine(p0, p1);
+			if (_renderer != null)
+				_renderer.DrawLine(p0, p1);
 		}
 
 		public static void DrawPoint(Pose pose, float x, float y, float z)
 		{
-			if (_visualizer != null)
+			if (_renderer != null)
 			{
 				Position p = pose.Orientation * Vector3.Create(x, y, z) + pose.Position;
-				_visualizer.DrawPoint(p);
+				_renderer.DrawPoint(p);
 			}
 		}
 
 
-		public static IVisualizer Visualizer
+		public static IVisualizer Renderer
 		{
-			get { return _visualizer; }
-			set { _visualizer = value; }
+			get { return _renderer; }
+			set { _renderer = value; }
 		}
 
 		/* Called by Framework after fixed updates are complete. Swaps the
@@ -138,8 +113,8 @@ namespace FlatFour
 		 * start while the old list is being rendered */
 		internal static void Swap()
 		{
-			if (_visualizer != null)
-				_visualizer.Swap();
+			if (_renderer != null)
+				_renderer.Swap();
 		}
 	}
 }

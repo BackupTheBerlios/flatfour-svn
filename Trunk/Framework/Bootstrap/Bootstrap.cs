@@ -18,34 +18,22 @@ using System.Diagnostics;
 using FlatFour.Platform;
 using FlatFour.Graphics;
 
+/* This stuff is only for testing (remove assembly too!) */
+using FlatFour.Collision;
+
 namespace FlatFour.Bootstrapper
 {
 	public class Bootstrap
 	{
-		class MyBehavior : Behavior
-		{
-		}
-
-		class MyHandler1
-		{
-			public void Handle(MyBehavior b)
-			{
-				Trace.WriteLine("MyHandler1");
-			}
-		}
-
-		class MyHandler2
-		{
-			public void Handle(MyBehavior b)
-			{
-				Trace.WriteLine("MyHandler2");
-			}
-		}
+		private static BoxShape _shape;
 
 		static int Main(string[] args)
 		{
 			GraphicsWindow wnd = new GraphicsWindow("Test Window", 640, 480);
 			wnd.Camera.BackgroundColor = System.Drawing.Color.SkyBlue;
+			wnd.Camera.Position.Z = 3.0;
+
+			_shape = new BoxShape(1.0f, 1.0f, 1.0f);
 
 			Visualization.Add("FlatFour.Collision.BoxVisualizer");
 
@@ -58,6 +46,8 @@ namespace FlatFour.Bootstrapper
 
 		static void OnTick()
 		{
+			Visualization.Draw(_shape);
+
 			Framework.Tick();
 		}
 	}

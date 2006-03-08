@@ -14,10 +14,21 @@
 #endregion
 
 using System;
+using OpenDE;
 
 namespace FlatFour.Collision.Internals
 {
-	public abstract class ShapeBase : Behavior
+	public abstract class ShapeBase : Behavior, IDisposable
 	{
+		protected IntPtr _handle;
+
+		public virtual void Dispose()
+		{
+			if (_handle != IntPtr.Zero)
+			{
+				d.GeomDestroy(_handle);
+				_handle = IntPtr.Zero;
+			}
+		}
 	}
 }

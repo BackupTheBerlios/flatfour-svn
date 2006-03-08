@@ -14,12 +14,31 @@
 #endregion
 
 using System;
-using System.Collections.Generic;
-using System.Text;
+using OpenDE;
 
 namespace FlatFour.Collision
 {
-	class BoxShape : Internals.ShapeBase
+	public class BoxShape : Internals.ShapeBase
 	{
+		private Vector3 _lengths;
+
+		public BoxShape(float lx, float ly, float lz)
+		{
+			_lengths = Vector3.Create(lx, ly, lz);
+			_handle = d.CreateBox(IntPtr.Zero, lx, ly, lz);
+		}
+
+		public Vector3 Lengths
+		{
+			get
+			{
+				return _lengths;
+			}
+			set
+			{
+				_lengths = value;
+				d.GeomBoxSetLengths(_handle, value.X, value.Y, value.Z);
+			}
+		}
 	}
 }
