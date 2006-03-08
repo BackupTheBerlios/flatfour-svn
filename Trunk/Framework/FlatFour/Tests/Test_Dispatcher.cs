@@ -21,58 +21,45 @@ namespace FlatFour.Tests
 	[TestFixture]
 	public class Test_Dispatcher
 	{
-		/* I don't seem to be able to unit test the Dispatcher...I get a 
-		 * MethodAccessException when I try to make the callback. I'll
-		 * need to revist this later. */
-
+		private class MyBehavior : Behavior { }
 		private class TestHandler
 		{
+			public int Count = 0;
+			public void OnCall(MyBehavior tb)
+			{
+				Count++;
+			}
 		}
+
+		private TestHandler _handler;
+		private Dispatcher<Behavior> _d;
+
+		[SetUp]
+		public void Test_Setup()
+		{
+			_handler = new TestHandler();
+			_d = new Dispatcher<Behavior>();
+		}
+
 
 		[Test]
 		public void CanCreate()
 		{
-			Dispatcher<Behavior> d = new Dispatcher<Behavior>();
-			Assert.IsNotNull(d, "Unable to create");
+			Assert.IsNotNull(_d, "Unable to create");
 		}
 
 		[Test]
 		public void CanAdd()
 		{
-			Dispatcher<Behavior> d = new Dispatcher<Behavior>();
-			d.Add(new TestHandler());
+			_d.Add(_handler);
 		}
 
 		[Test]
-		protected void CanGarbageCollect()
+		public void CanCall()
 		{
-			/* In the case that I attach to a remote object, I should still be
-			 * able to garbage collect the handler class */
-		}
-
-		[Test]
-		protected void CanCallSingle()
-		{
-			/* Dispatch an object to a handler which contains one matching method */
-		}
-
-		[Test]
-		protected void CanCallMultiple()
-		{
-			/* Dispatch to an object that defines multiple matching methods */
-		}
-
-		[Test]
-		protected void CanCallInherited()
-		{
-			/* Call a handler that has been inherited from a base class */
-		}
-
-		[Test]
-		protected void CanCallFromDerivedType()
-		{
-			/* Send a data object derived from a base class, should arrive at handlers 
-			 * for that base class */
+			_d.Add(_handler);
+			_d.Dispatch(new MyBehavior());
+			Assert.AreEqual(1, _handler.Count);
 		}
 	}
 }
