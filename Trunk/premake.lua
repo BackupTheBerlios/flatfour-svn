@@ -45,9 +45,14 @@ project.name = "FlatFour"
 		dopackage("Framework/Libs/GameGuts/code/toolkit")
 		dopackage("Framework/Libs/GameGuts/bindings/dotnet")
 
+		-- ODE support stuff
+		if (not options["target"]) then
+			options["target"] = "vs2003"
+		end
 		options["dll"] = 1
-		dopackage("Framework/Libs/ode/contrib/Premake/ode.lua")
-		package.path = "Framework/Libs/ode/ode"
+
+		dopackage("Framework/Libs/ode/build/ode.lua")
+		package.path = "Framework/Libs/ode/build/flatfour"
 		dopackage("Framework/Libs/ode/contrib/Premake/dotnet.lua")
 		package.path = "Framework/Libs/ode/contrib/DotNet"
 	end
@@ -77,6 +82,7 @@ project.name = "FlatFour"
 	function doclean(cmd, arg)
 		docommand(cmd, arg)
 		os.remove("FlatFour.nunit")
+		os.rmdir("Framework/Libs/ode/build/flatfour")
 	end
 
 	function dotarget(cmd, arg)

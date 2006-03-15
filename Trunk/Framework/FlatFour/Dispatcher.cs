@@ -64,6 +64,7 @@ namespace FlatFour
 				_methods.Add(targetType, cache);
 
 				/* Search for suitable methods */
+				Type[] args = new Type[] { typeof(object), typeof(object) };
 				MethodInfo[] methods = targetType.GetMethods(BindingFlags.Public | BindingFlags.Instance);
 				foreach (MethodInfo method in methods)
 				{
@@ -81,11 +82,8 @@ namespace FlatFour
 					if (!parmType.IsSubclassOf(typeof(T)))
 						continue;
 
-					/* Rather than create a custom delegate -- with all of the
-					 * metadata and overhead associated with a type -- I create
-					 * a small wrapper method to do the call. Since I've already
-					 * type-checked the signature, this can be very small */
-					DynamicMethod dm = new DynamicMethod("", typeof(void), new Type[] { typeof(object), typeof(object) }, targetType);
+					/* Wrap the call with generic arguments */
+					DynamicMethod dm = new DynamicMethod("", typeof(void), args, targetType);
 					ILGenerator il = dm.GetILGenerator();
 					il.Emit(OpCodes.Ldarg_0);
 					il.Emit(OpCodes.Ldarg_1);
