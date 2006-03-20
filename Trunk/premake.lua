@@ -49,12 +49,12 @@ project.name = "FlatFour"
 		if (not options["target"]) then
 			options["target"] = "vs2003"
 		end
-		options["dll"] = 1
+		options["with-doubles"] = 1
 
 		dopackage("Framework/Libs/ode/build/ode.lua")
 		package.path = "Framework/Libs/ode/build/flatfour"
-		dopackage("Framework/Libs/ode/contrib/Premake/dotnet.lua")
-		package.path = "Framework/Libs/ode/contrib/DotNet"
+		dopackage("Framework/Libs/ode/build/dotnet.lua")
+		package.path = "Framework/Libs/ode/build/flatfour"
 	end
 	
 	dopackage("Framework/FlatFour")
