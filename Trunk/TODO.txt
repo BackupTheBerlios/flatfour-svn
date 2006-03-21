@@ -1,3 +1,10 @@
+* Track all collision, rbody, gfx etc objects and call Dispose() when subsystem
+  shuts down. Use weak references to allow GC, maybe abstract into separate class.
+
+* WeakDelegates for update delegates, so behaviors can attach to them? 
+
+* Be sure to call GC.SuppressFinalize() in all Dispose() methods
+
 * Memory leaks, apparently from ODE. Route ODE memory allocations through the
   toolkit to get line numbers. Probably the static trimesh memory from last time.
 
@@ -28,4 +35,7 @@
   messages are okay, but messages from the Toolkit are \n only. Maybe do a
   Replace() on incoming text (how to detect platform EOL sequence?)
 
-  
+* Possible performance enhancement: Put a StepNumber in DynamicsSystem that 
+  gets incremented in OnTick(). In RigidBody, keep a LastUpdatedStepNumber.
+  When someone reads position or orientation, check to see if I am out of
+  date (LastUpdatedStepNumber !== DS.StepNumber) and pull info.

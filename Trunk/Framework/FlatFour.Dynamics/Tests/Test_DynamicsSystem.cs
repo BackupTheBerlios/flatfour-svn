@@ -1,5 +1,5 @@
 #region BSD License
-/* FlatFour.Tests - Test_Actor.cs
+/* FlatFour.Dynamics.Tests - Test_DynamicsSystem.cs
  * Copyright (c) 2001-2006 Jason Perkins.
  * All rights reserved.
  * 
@@ -16,39 +16,21 @@
 using System;
 using NUnit.Framework;
 
-namespace FlatFour.Tests
+namespace FlatFour.Dynamics.Tests
 {
 	[TestFixture]
-	public class Test_Actor
+	public class Test_DynamicsSystem
 	{
-		private class MyBehavior : Behavior { }
-		private class MyPose : Pose { }
-
 		[Test]
-		public void SetsActorRef()
+		public void CanConnectAndDisconnectCleanly()
 		{
-			Actor a = new Actor();
-			MyBehavior b = new MyBehavior();
-			a.Add(b);
-			Assert.AreSame(a, b.Actor);
+			DynamicsSystem.EnsureReady();
+			Assert.IsTrue(DynamicsSystem.Handle != IntPtr.Zero);
+			Framework.Disconnect();
+			Assert.IsTrue(DynamicsSystem.Handle == IntPtr.Zero);
+			Framework.Connect();
+			Assert.IsTrue(DynamicsSystem.Handle != IntPtr.Zero);
 		}
 
-		[Test]
-		public void SetsPoseShortcut()
-		{
-			Actor a = new Actor();
-			Pose p = new Pose();
-			a.Add(p);
-			Assert.AreSame(p, a.Pose);
-		}
-
-		[Test]
-		public void SetsPoseShutcutFromSubclass()
-		{
-			Actor a = new Actor();
-			MyPose p = new MyPose();
-			a.Add(p);
-			Assert.AreSame(p, a.Pose);
-		}
 	}
 }

@@ -63,10 +63,10 @@ namespace FlatFour.Tests
 			_watch.Start();
 			Thread.Sleep(100);
 			_watch.MarkInterval();
-			Assert.IsTrue(_watch.Elapsed >= 0.09f && _watch.Elapsed <= 0.11f, "Elapsed time out of range (" + _watch.Elapsed + ")");
+			Assert.IsTrue(_watch.Elapsed >= 0.09f && _watch.Elapsed <= 0.13f, "Elapsed time out of range (" + _watch.Elapsed + ")");
 			Thread.Sleep(100);
 			_watch.MarkInterval();
-			Assert.IsTrue(_watch.Elapsed >= 0.09f && _watch.Elapsed <= 0.11f, "Elapsed time out of range (" + _watch.Elapsed + ")");
+			Assert.IsTrue(_watch.Elapsed >= 0.09f && _watch.Elapsed <= 0.13f, "Elapsed time out of range (" + _watch.Elapsed + ")");
 		}
 
 		[Test]
@@ -75,7 +75,7 @@ namespace FlatFour.Tests
 			_watch.Start();
 			Thread.Sleep(100);
 			_watch.Stop();
-			Assert.IsTrue(_watch.Total >= 0.09 && _watch.Total <= 0.11, "Total time out of range (" + _watch.Total + ")");
+			Assert.IsTrue(_watch.Total >= 0.09 && _watch.Total <= 0.13, "Total time out of range (" + _watch.Total + ")");
 		}
 
 		[Test]

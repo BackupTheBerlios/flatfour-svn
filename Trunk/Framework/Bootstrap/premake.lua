@@ -8,7 +8,10 @@ package.links =
 	"System.Drawing",
 	"FlatFour.Platform",
 	"FlatFour.Graphics",
-	"FlatFour.Collision"
+	
+	-- Remove these!
+	"FlatFour.Collision",
+	"FlatFour.Dynamics"
 }
 
 package.files =

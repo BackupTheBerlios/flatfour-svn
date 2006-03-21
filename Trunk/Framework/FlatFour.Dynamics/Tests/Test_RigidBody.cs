@@ -1,5 +1,5 @@
 #region BSD License
-/* FlatFour.Tests - Test_Actor.cs
+/* FlatFour.Dynamics.Tests - Test_RigidBody.cs
  * Copyright (c) 2001-2006 Jason Perkins.
  * All rights reserved.
  * 
@@ -16,39 +16,18 @@
 using System;
 using NUnit.Framework;
 
-namespace FlatFour.Tests
+namespace FlatFour.Dynamics.Tests
 {
 	[TestFixture]
-	public class Test_Actor
+	public class Test_RigidBody
 	{
-		private class MyBehavior : Behavior { }
-		private class MyPose : Pose { }
-
 		[Test]
-		public void SetsActorRef()
+		public void CanCreateAndDisposeCleanly()
 		{
-			Actor a = new Actor();
-			MyBehavior b = new MyBehavior();
-			a.Add(b);
-			Assert.AreSame(a, b.Actor);
-		}
-
-		[Test]
-		public void SetsPoseShortcut()
-		{
-			Actor a = new Actor();
-			Pose p = new Pose();
-			a.Add(p);
-			Assert.AreSame(p, a.Pose);
-		}
-
-		[Test]
-		public void SetsPoseShutcutFromSubclass()
-		{
-			Actor a = new Actor();
-			MyPose p = new MyPose();
-			a.Add(p);
-			Assert.AreSame(p, a.Pose);
+			RigidBody rb = new RigidBody();
+			Assert.IsTrue(rb.Handle != IntPtr.Zero);
+			rb.Dispose();
+			Assert.IsTrue(rb.Handle == IntPtr.Zero);
 		}
 	}
 }

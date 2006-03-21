@@ -53,6 +53,8 @@ project.name = "FlatFour"
 
 		dopackage("Framework/Libs/ode/build/ode.lua")
 		package.path = "Framework/Libs/ode/build/flatfour"
+		table.insert(package.files, "../../../ode_helpers.cpp")
+		
 		dopackage("Framework/Libs/ode/build/dotnet.lua")
 		package.path = "Framework/Libs/ode/build/flatfour"
 	end

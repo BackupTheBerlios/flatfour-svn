@@ -66,7 +66,7 @@ namespace FlatFour
 
 		private void SetShortcut(Behavior item, Behavior value)
 		{
-			if (item.GetType() == typeof(Pose))
+			if (typeof(Pose).IsInstanceOfType(item))
 				_pose = (Pose)value;
 		}
 

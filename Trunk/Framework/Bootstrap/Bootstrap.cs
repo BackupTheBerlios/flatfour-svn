@@ -20,6 +20,7 @@ using FlatFour.Graphics;
 
 /* This stuff is only for testing (remove assembly too!) */
 using FlatFour.Collision;
+using FlatFour.Dynamics;
 
 namespace FlatFour.Bootstrapper
 {
@@ -30,6 +31,8 @@ namespace FlatFour.Bootstrapper
 
 		static int Main(string[] args)
 		{
+			DynamicsSystem.SetGravity(0.0f, -9.81f, 0.0f);
+
 			GraphicsWindow wnd = new GraphicsWindow("Test Window", 640, 480);
 
 			/* Create an actor at the origin to contain the camera */
@@ -41,6 +44,7 @@ namespace FlatFour.Bootstrapper
 			/* Create an actor to hold a box */
 			Actor box = new Actor();
 			box.Add(new BoxShape(1.0f, 1.0f, 1.0f));
+			box.Add(new RigidBody());
 
 			_scene.Add(camera);
 			_scene.Add(box);

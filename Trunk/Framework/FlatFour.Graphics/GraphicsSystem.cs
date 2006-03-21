@@ -62,9 +62,7 @@ namespace FlatFour.Graphics
 		private static void OnShutdown(object sender, EventArgs e)
 		{
 			Trace.WriteLine("Stopping graphics subsystem");
-
 			DisposeRenderTargetList();
-
 			if (!Toolkit.utShutdown())
 				throw new FrameworkException();
 			Trace.WriteLine("Graphics subsystem stopped");

@@ -1,6 +1,6 @@
 #region BSD License
-/* FlatFour.Collision - ShapeBase.cs
- * Copyright (c) 2001-2006 Jason Perkins.
+/* FlatFour.Dynamics - RigidBody.cs
+ * Copyright (c) 2001-2005 Jason Perkins.
  * All rights reserved.
  * 
  * This library is free software; you can redistribute it and/or
@@ -16,20 +16,38 @@
 using System;
 using OpenDE;
 
-namespace FlatFour.Collision.Internals
+namespace FlatFour.Dynamics
 {
-	public abstract class ShapeBase : Behavior, IDisposable
+	public class RigidBody : Pose, IDisposable
 	{
-		protected IntPtr _handle;
+		private IntPtr _handle;
 
-		public virtual void Dispose()
+		public RigidBody()
+		{
+			_handle = d.BodyCreate(DynamicsSystem.Handle);
+			DynamicsSystem.Objects.Add(this);
+		}
+
+		public void Dispose()
 		{
 			if (_handle != IntPtr.Zero)
 			{
-				d.GeomDestroy(_handle);
+				d.BodyDestroy(_handle);
 				_handle = IntPtr.Zero;
 				GC.SuppressFinalize(this);
+				DynamicsSystem.Objects.Remove(this);
 			}
+		}
+
+
+		internal IntPtr Handle
+		{
+			get { return _handle; }
+		}
+
+		internal void Reload()
+		{
+			d.BodyCopyPosition(_handle, out Position.X);
 		}
 	}
 }
