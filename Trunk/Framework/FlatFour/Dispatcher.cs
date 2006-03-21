@@ -21,111 +21,70 @@ using System.Reflection.Emit;
 
 namespace FlatFour
 {
-	/* The Dispatcher is the base class for my generic data handling containers
-	 * like Actor and Visualization. These container classes receive data
-	 * objects and need to route them to one or more handler classes that do
-	 * the actual work. To make the system easily extensible, I want to
-	 * automatically find these handler methods and call them, without needing
-	 * a special registration step. This class makes that possible. */
+	/* The Dispatcher is the base class for my composition-based containers
+	 * like Actor and Visualization. These container classes receive objects
+	 * and route them to one or more handlers that act on them. To make the 
+	 * system easily extensible, I want to automatically find these handler 
+	 * methods and call them, without needing a special registration step. 
+	 * Like Rails: Convention Over Configuration. */
 	public class Dispatcher<T>
 	{
-		/* Generic callback signature */
-		private delegate void GenericDispatch(object arg);
-
-		/* Cache of runtime generated hooks, keyed by type */
-		private class DynamicMethodCache : Dictionary<Type, DynamicMethod> { }
-		private static Dictionary<Type, DynamicMethodCache> _methods;
+		/* All handlers specialize this generic signature */
+		private delegate void GenericHandler(object arg);
 
 		/* Handlers registered to this specific instance */
-		private Dictionary<Type, GenericDispatch> _handlers;
-
-		static Dispatcher()
-		{
-			_methods = new Dictionary<Type, DynamicMethodCache>();
-		}
+		private Dictionary<Type, GenericHandler> _handlers;
 
 		public Dispatcher()
 		{
-			_handlers = new Dictionary<Type, GenericDispatch>();
+			_handlers = new Dictionary<Type, GenericHandler>();
 		}
 
-
+		
+		/* Build myself up through composition */
 		public void Add(object target)
 		{
 			Type targetType = target.GetType();
 
-			/* Have I already registered this type? If so I already have a
-			 * list of the suitable methods for registration */
-			DynamicMethodCache cache;
-			if (!_methods.TryGetValue(targetType, out cache))
+			/* Search for suitable handler methods */
+			MethodInfo[] methods = targetType.GetMethods(BindingFlags.Public | BindingFlags.Instance);
+			foreach (MethodInfo method in methods)
 			{
-				/* Create a new cache */
-				cache = new DynamicMethodCache();
-				_methods.Add(targetType, cache);
+				/* Must return void */
+				if (method.ReturnType != typeof(void))
+					continue;
 
-				/* Search for suitable methods */
-				Type[] args = new Type[] { typeof(object), typeof(object) };
-				MethodInfo[] methods = targetType.GetMethods(BindingFlags.Public | BindingFlags.Instance);
-				foreach (MethodInfo method in methods)
-				{
-					/* Must return void */
-					if (method.ReturnType != typeof(void))
-						continue;
+				/* Must have a single parameter */
+				ParameterInfo[] parms = method.GetParameters();
+				if (parms.Length != 1)
+					continue;
 
-					/* Must have a single parameter */
-					ParameterInfo[] parms = method.GetParameters();
-					if (parms.Length != 1)
-						continue;
+				/* Parameter type must be a subclass of my target type */
+				Type parmType = parms[0].ParameterType;
+				if (!parmType.IsSubclassOf(typeof(T)))
+					continue;
 
-					/* Parameter type must be a subclass of my target type */
-					Type parmType = parms[0].ParameterType;
-					if (!parmType.IsSubclassOf(typeof(T)))
-						continue;
+				/* Looks good, create a delegate to call this method. I have to
+				 * resort to some trickery to avoid the type checking */
+				object[] args = new object[] { target, method.MethodHandle.GetFunctionPointer() };
+				GenericHandler handler = (GenericHandler)Activator.CreateInstance(typeof(GenericHandler), args);
 
-					/* Wrap the call with generic arguments */
-					DynamicMethod dm = new DynamicMethod("", typeof(void), args, targetType);
-					ILGenerator il = dm.GetILGenerator();
-					il.Emit(OpCodes.Ldarg_0);
-					il.Emit(OpCodes.Ldarg_1);
-					il.Emit(OpCodes.Call, method);
-					il.Emit(OpCodes.Ret);
-					cache.Add(parmType, dm);
-				}
-			}
-
-			/* For each type registered by the handler, create an entry in 
-			 * my local dispatch table */
-			foreach (Type argType in cache.Keys)
-			{
-				DynamicMethod dm = cache[argType];
-				GenericDispatch gd = (GenericDispatch)dm.CreateDelegate(typeof(GenericDispatch), target);
-				if (_handlers.ContainsKey(argType))
-					_handlers[argType] += gd;
+				/* Add it to my dispatch table */
+				if (_handlers.ContainsKey(parmType))
+					_handlers[parmType] += handler;
 				else
-					_handlers[argType] = gd;
+					_handlers[parmType] = handler;
 			}
 		}
 
 		public void Remove(object target)
 		{
 			throw new NotImplementedException("Still need to figure this one out");
-			/*
-			foreach (Type argType in _handlers.Keys)
-			{
-				GenericDispatch gd = _handlers[argType];
-				Delegate[] delegates = gd.GetInvocationList();
-				foreach (Delegate d in delegates)
-				{
-					if (d.Target == target)
-						_handlers[argType] -= (GenericDispatch)d;
-				}
-			}
-			*/
 		}
 
 		public void Dispatch(T item)
 		{
-			GenericDispatch handler;
+			GenericHandler handler;
 			if (_handlers.TryGetValue(item.GetType(), out handler))
 				handler(item);
 		}
