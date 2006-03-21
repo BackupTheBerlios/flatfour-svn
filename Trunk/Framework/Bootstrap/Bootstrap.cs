@@ -25,18 +25,30 @@ namespace FlatFour.Bootstrapper
 {
 	public class Bootstrap
 	{
-		private static BoxShape _shape;
+		static Scene _scene = new Scene();
+		static RenderMessage _rm = new RenderMessage();
 
 		static int Main(string[] args)
 		{
 			GraphicsWindow wnd = new GraphicsWindow("Test Window", 640, 480);
+
+			/* Create an actor at the origin to contain the camera */
+			Actor camera = new Actor();
+			camera.Add(wnd.Camera);
 			wnd.Camera.BackgroundColor = System.Drawing.Color.SkyBlue;
 			wnd.Camera.Position.Z = 3.0;
 
-			_shape = new BoxShape(1.0f, 1.0f, 1.0f);
+			/* Create an actor to hold a box */
+			Actor box = new Actor();
+			box.Add(new BoxShape(1.0f, 1.0f, 1.0f));
 
+			_scene.Add(camera);
+			_scene.Add(box);
+
+			/* Enable visualization of collision shapes */
 			Visualization.Add("FlatFour.Collision.BoxVisualizer");
 
+			/* Run the event loop */
 			PlatformSystem.Tick += new TickHandler(OnTick);
 			PlatformSystem.EventLoop();
 
@@ -46,8 +58,7 @@ namespace FlatFour.Bootstrapper
 
 		static void OnTick()
 		{
-			Visualization.Draw(_shape);
-
+			_scene.Dispatch(_rm);
 			Framework.Tick();
 		}
 	}

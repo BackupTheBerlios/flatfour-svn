@@ -18,7 +18,7 @@ using System.Drawing;
 
 namespace FlatFour.Graphics
 {
-	public class Camera
+	public class Camera : Behavior
 	{
 		public Color BackgroundColor;
 		public Position Position;

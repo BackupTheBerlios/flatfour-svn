@@ -1,5 +1,5 @@
 #region BSD License
-/* FlatFour.Collision - BoxVisualizer.cs
+/* FlatFour - Scene.cs
  * Copyright (c) 2001-2006 Jason Perkins.
  * All rights reserved.
  * 
@@ -14,15 +14,34 @@
 #endregion
 
 using System;
+using System.Collections.ObjectModel;
 
-namespace FlatFour.Collision
+namespace FlatFour
 {
-	public class BoxVisualizer : Visualization
+	public class Scene : Collection<Actor>
 	{
-		public void Draw(BoxShape shape)
+		public void Dispatch(Message message)
 		{
-			Vector3 lengths = shape.Lengths;
-			DrawBox(shape.Actor.Pose, lengths.X, lengths.Y, lengths.Z);
+			/* Stupid, brute force approach for now */
+			foreach (Actor actor in this)
+			{
+				message.Notify(actor);
+			}
+		}
+
+
+		protected override void InsertItem(int index, Actor item)
+		{
+			base.InsertItem(index, item);
+			item.Scene = this;
+		}
+
+
+		protected override void RemoveItem(int index)
+		{
+			Actor item = this[index];
+			base.RemoveItem(index);
+			item.Scene = null;
 		}
 	}
 }

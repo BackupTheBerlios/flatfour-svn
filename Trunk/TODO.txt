@@ -1,16 +1,15 @@
+* Memory leaks, apparently from ODE. Route ODE memory allocations through the
+  toolkit to get line numbers. Probably the static trimesh memory from last time.
+
 * Add Dispatcher.Remove() ... compare to delegate.Target and remove if it
   matches the given instance. Also, can I use WeakDelegates? Should I?
 
 * Refactor master list of platform windows to match master list of render targets
 
-* Editor unit tests
-
-* Bootstrap unit tests
-
 * Internationalize the editor
 
 * Add AssemblyInfo.cs with CLSCompliant flag to all assemblies, except maybe
-  the editor (also add tickler to packaging)
+  the editor (also add tickler to packaging to update versions)
   
 * The `start` parameter on utDraw() is unused.
 

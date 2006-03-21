@@ -17,7 +17,7 @@ using System;
 
 namespace FlatFour
 {
-	public class Pose
+	public class Pose : Behavior
 	{
 		public Position Position;
 		public Quaternion Orientation;

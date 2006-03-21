@@ -37,11 +37,40 @@ namespace FlatFour
 			_visualizers.Add(viz);
 		}
 
+
 		/* Draw visualizations for a particular actor */
-		public static void Draw(Behavior behavior)
+		public static void Draw(Actor actor)
 		{
-			_visualizers.Dispatch(behavior);
+			foreach (Behavior behavior in actor)
+				_visualizers.Dispatch(behavior);
 		}
+
+
+		/* Returns true if at least one visualizer has been registered */
+		public static bool IsEmpty
+		{
+			get { return (_visualizers.Count == 0); }
+		}
+
+
+		/* The implementation; what actually does the drawing */
+		public static IVisualizer Renderer
+		{
+			get { return _renderer; }
+			set { _renderer = value; }
+		}
+
+
+		/* Called by Framework after fixed updates are complete. Swaps the
+		 * current list of visualizations for a new list so a new update can
+		 * start while the old list is being rendered */
+		internal static void Swap()
+		{
+			if (_renderer != null)
+				_renderer.Swap();
+		}
+
+		#region Draw Methods
 
 		/* Draw an axis-aligned box located at the origin */
 		public static void DrawBox(Pose pose, float xLength, float yLength, float zLength)
@@ -52,19 +81,35 @@ namespace FlatFour
 			DrawBox(pose, Vector3.Create(-x2, -y2, -z2), Vector3.Create(x2, y2, z2));
 		}
 
+
 		/* Draw an axis-aligned box off the origin*/
 		public static void DrawBox(Pose pose, Vector3 min, Vector3 max)
 		{
 			if (_renderer != null)
 			{
-				Position p0 = pose.Orientation * min + pose.Position;
-				Position p1 = pose.Orientation * Vector3.Create(max.X, min.Y, min.Z) + pose.Position;
-				Position p2 = pose.Orientation * Vector3.Create(max.X, max.Y, min.Z) + pose.Position;
-				Position p3 = pose.Orientation * Vector3.Create(min.X, max.Y, min.Z) + pose.Position;
-				Position p4 = pose.Orientation * Vector3.Create(min.X, min.Y, max.Z) + pose.Position;
-				Position p5 = pose.Orientation * Vector3.Create(max.X, min.Y, max.Z) + pose.Position;
-				Position p6 = pose.Orientation * max + pose.Position;
-				Position p7 = pose.Orientation * Vector3.Create(min.X, max.Y, max.Z) + pose.Position;
+				Position p0, p1, p2, p3, p4, p5, p6, p7;
+				if (pose != null)
+				{
+					p0 = pose.Orientation * min + pose.Position;
+					p1 = pose.Orientation * Vector3.Create(max.X, min.Y, min.Z) + pose.Position;
+					p2 = pose.Orientation * Vector3.Create(max.X, max.Y, min.Z) + pose.Position;
+					p3 = pose.Orientation * Vector3.Create(min.X, max.Y, min.Z) + pose.Position;
+					p4 = pose.Orientation * Vector3.Create(min.X, min.Y, max.Z) + pose.Position;
+					p5 = pose.Orientation * Vector3.Create(max.X, min.Y, max.Z) + pose.Position;
+					p6 = pose.Orientation * max + pose.Position;
+					p7 = pose.Orientation * Vector3.Create(min.X, max.Y, max.Z) + pose.Position;
+				}
+				else
+				{
+					p0 = Position.Create(min.X, min.Y, min.Z);
+					p1 = Position.Create(max.X, min.Y, min.Z);
+					p2 = Position.Create(max.X, max.Y, min.Z);
+					p3 = Position.Create(min.X, max.Y, min.Z);
+					p4 = Position.Create(min.X, min.Y, max.Z);
+					p5 = Position.Create(max.X, min.Y, max.Z);
+					p6 = Position.Create(max.X, max.Y, max.Z);
+					p7 = Position.Create(min.X, max.Y, max.Z);
+				}
 
 				DrawLine(p0, p1);
 				DrawLine(p1, p2);
@@ -96,25 +141,16 @@ namespace FlatFour
 		{
 			if (_renderer != null)
 			{
-				Position p = pose.Orientation * Vector3.Create(x, y, z) + pose.Position;
-				_renderer.DrawPoint(p);
+				Position pos;
+				if (pose != null)
+					pos = pose.Orientation * Vector3.Create(x, y, z) + pose.Position;
+				else
+					pos = Position.Create(x, y, z);
+
+				_renderer.DrawPoint(pos);
 			}
 		}
 
-
-		public static IVisualizer Renderer
-		{
-			get { return _renderer; }
-			set { _renderer = value; }
-		}
-
-		/* Called by Framework after fixed updates are complete. Swaps the
-		 * current list of visualizations for a new list so a new update can
-		 * start while the old list is being rendered */
-		internal static void Swap()
-		{
-			if (_renderer != null)
-				_renderer.Swap();
-		}
+		#endregion
 	}
 }

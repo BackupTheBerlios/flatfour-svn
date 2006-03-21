@@ -1,5 +1,5 @@
 #region BSD License
-/* FlatFour.Collision - BoxVisualizer.cs
+/* FlatFour.Tests - Test_Actor.cs
  * Copyright (c) 2001-2006 Jason Perkins.
  * All rights reserved.
  * 
@@ -14,15 +14,31 @@
 #endregion
 
 using System;
+using NUnit.Framework;
 
-namespace FlatFour.Collision
+namespace FlatFour.Tests
 {
-	public class BoxVisualizer : Visualization
+	[TestFixture]
+	public class Test_Actor
 	{
-		public void Draw(BoxShape shape)
+		private class MyBeh : Behavior { }
+
+		[Test]
+		public void SetsActorRef()
 		{
-			Vector3 lengths = shape.Lengths;
-			DrawBox(shape.Actor.Pose, lengths.X, lengths.Y, lengths.Z);
+			Actor a = new Actor();
+			MyBeh b = new MyBeh();
+			a.Add(b);
+			Assert.AreSame(a, b.Actor);
+		}
+
+		[Test]
+		public void SetsPoseShortcut()
+		{
+			Actor a = new Actor();
+			Pose p = new Pose();
+			a.Add(p);
+			Assert.AreSame(p, a.Pose);
 		}
 	}
 }

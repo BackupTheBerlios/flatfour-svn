@@ -29,11 +29,9 @@ namespace FlatFour
 	 * Like Rails: Convention Over Configuration. */
 	public class Dispatcher<T>
 	{
-		/* All handlers specialize this generic signature */
 		private delegate void GenericHandler(object arg);
-
-		/* Handlers registered to this specific instance */
 		private Dictionary<Type, GenericHandler> _handlers;
+		private int _count;
 
 		public Dispatcher()
 		{
@@ -45,6 +43,7 @@ namespace FlatFour
 		public void Add(object target)
 		{
 			Type targetType = target.GetType();
+			_count++;
 
 			/* Search for suitable handler methods */
 			MethodInfo[] methods = targetType.GetMethods(BindingFlags.Public | BindingFlags.Instance);
@@ -77,16 +76,25 @@ namespace FlatFour
 			}
 		}
 
+
 		public void Remove(object target)
 		{
+			_count--;
 			throw new NotImplementedException("Still need to figure this one out");
 		}
+
 
 		public void Dispatch(T item)
 		{
 			GenericHandler handler;
 			if (_handlers.TryGetValue(item.GetType(), out handler))
 				handler(item);
+		}
+
+
+		public int Count
+		{
+			get { return _count; }
 		}
 	}
 }

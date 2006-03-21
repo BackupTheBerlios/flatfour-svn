@@ -19,5 +19,12 @@ namespace FlatFour
 {
 	public abstract class Behavior
 	{
+		private Actor _actor;
+
+		public Actor Actor
+		{
+			get { return _actor; }
+			internal set { _actor = value; }
+		}
 	}
 }

@@ -25,6 +25,7 @@ namespace FlatFour.Graphics
 	public static class GraphicsSystem
 	{
 		private static Visualizer _visualizer;
+		private static RenderMessage _renderMessage;
 
 		#region Setup and Shutdown
 
@@ -37,6 +38,8 @@ namespace FlatFour.Graphics
 
 			_visualizer = new Visualizer();
 			Visualization.Renderer = _visualizer;
+
+			_renderMessage = new RenderMessage();
 
 			CreateRenderTargetList();
 		}
@@ -193,6 +196,13 @@ namespace FlatFour.Graphics
 		{
 			/* Apply the camera settings */
 			rt.Camera.ApplySettings(rt);
+
+			/* Scan the scene for visible objects */
+			if (rt.Camera.Actor != null && rt.Camera.Actor.Scene != null)
+			{
+				Scene scene = rt.Camera.Actor.Scene;
+				scene.Dispatch(_renderMessage);
+			}
 
 			/* Draw data visualizations over the top of the scene */
 			_visualizer.Flush(rt.Camera);

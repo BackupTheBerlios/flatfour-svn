@@ -1,5 +1,5 @@
 #region BSD License
-/* FlatFour.Tests - Test_ReflectedHandlers.cs
+/* FlatFour.Tests - Test_Dispatcher.cs
  * Copyright (c) 2001-2006 Jason Perkins.
  * All rights reserved.
  * 

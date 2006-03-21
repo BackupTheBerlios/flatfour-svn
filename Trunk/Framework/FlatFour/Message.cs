@@ -1,5 +1,5 @@
 #region BSD License
-/* FlatFour.Collision - BoxVisualizer.cs
+/* FlatFour - Message.cs
  * Copyright (c) 2001-2006 Jason Perkins.
  * All rights reserved.
  * 
@@ -15,14 +15,13 @@
 
 using System;
 
-namespace FlatFour.Collision
+namespace FlatFour
 {
-	public class BoxVisualizer : Visualization
+	public abstract class Message
 	{
-		public void Draw(BoxShape shape)
+		public virtual void Notify(Actor actor)
 		{
-			Vector3 lengths = shape.Lengths;
-			DrawBox(shape.Actor.Pose, lengths.X, lengths.Y, lengths.Z);
+			actor.Dispatch(this);
 		}
 	}
 }
