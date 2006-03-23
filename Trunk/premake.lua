@@ -46,17 +46,13 @@ project.name = "FlatFour"
 		dopackage("Framework/Libs/GameGuts/bindings/dotnet")
 
 		-- ODE support stuff
-		if (not options["target"]) then
-			options["target"] = "vs2003"
-		end
+		options["enable-shared-only"] = 1
 		options["with-doubles"] = 1
-
 		dopackage("Framework/Libs/ode/build/ode.lua")
-		package.path = "Framework/Libs/ode/build/flatfour"
+		package.path = "Framework/Libs/ode/build/custom"
 		table.insert(package.files, "../../../ode_helpers.cpp")
-		
 		dopackage("Framework/Libs/ode/build/dotnet.lua")
-		package.path = "Framework/Libs/ode/build/flatfour"
+		package.path = "Framework/Libs/ode/build/custom"
 	end
 	
 	dopackage("Framework/FlatFour")
