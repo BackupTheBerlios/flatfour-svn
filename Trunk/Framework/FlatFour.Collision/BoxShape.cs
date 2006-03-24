@@ -25,7 +25,7 @@ namespace FlatFour.Collision
 		public BoxShape(float lx, float ly, float lz)
 		{
 			_lengths = Vector3.Create(lx, ly, lz);
-			_handle = d.CreateBox(IntPtr.Zero, lx, ly, lz);
+			base.Handle = d.CreateBox(IntPtr.Zero, lx, ly, lz);
 		}
 
 		public Vector3 Lengths
@@ -37,7 +37,7 @@ namespace FlatFour.Collision
 			set
 			{
 				_lengths = value;
-				d.GeomBoxSetLengths(_handle, value.X, value.Y, value.Z);
+				d.GeomBoxSetLengths(base.Handle, value.X, value.Y, value.Z);
 			}
 		}
 	}

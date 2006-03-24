@@ -20,7 +20,7 @@ namespace FlatFour.Collision.Internals
 {
 	public abstract class ShapeBase : Behavior, IDisposable
 	{
-		protected IntPtr _handle;
+		private IntPtr _handle;
 
 		public virtual void Dispose()
 		{
@@ -30,6 +30,12 @@ namespace FlatFour.Collision.Internals
 				_handle = IntPtr.Zero;
 				GC.SuppressFinalize(this);
 			}
+		}
+
+		protected IntPtr Handle
+		{
+			get { return _handle; }
+			set { _handle = value; }
 		}
 	}
 }

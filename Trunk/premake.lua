@@ -51,8 +51,9 @@ project.name = "FlatFour"
 		dopackage("Framework/Libs/ode/build/ode.lua")
 		package.path = "Framework/Libs/ode/build/custom"
 		table.insert(package.files, "../../../ode_helpers.cpp")
-		dopackage("Framework/Libs/ode/build/dotnet.lua")
-		package.path = "Framework/Libs/ode/build/custom"
+--		dopackage("Framework/Libs/ode/build/dotnet.lua")
+--		package.path = "Framework/Libs/ode/build/custom"
+		dopackage("Framework/Libs/ode.net/dotnet.lua")
 	end
 	
 	dopackage("Framework/FlatFour")
@@ -79,12 +80,8 @@ project.name = "FlatFour"
 
 	function doclean(cmd, arg)
 		docommand(cmd, arg)
-		os.remove("FlatFour.nunit")
-		os.rmdir("Framework/Libs/ode/build/flatfour")
-	end
-
-	function dotarget(cmd, arg)
-		docommand(cmd, arg)
-		setup_nunit()
+		if (options["with-libs"]) then
+			os.rmdir("Framework/Libs/ode/build/custom")
+		end
 	end
 	
