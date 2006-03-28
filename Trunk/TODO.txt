@@ -1,7 +1,7 @@
 * Track all collision, rbody, gfx etc objects and call Dispose() when subsystem
   shuts down. Use weak references to allow GC, maybe abstract into separate class.
 
-* WeakDelegates for update delegates, so behaviors can attach to them? 
+* WeakDelegates for framework update delegates, so behaviors can attach to them? 
 
 * Be sure to call GC.SuppressFinalize() in all Dispose() methods
 
