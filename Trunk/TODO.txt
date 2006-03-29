@@ -1,7 +1,7 @@
-* Track all collision, rbody, gfx etc objects and call Dispose() when subsystem
-  shuts down. Use weak references to allow GC, maybe abstract into separate class.
+* Only allow one scene. Formalize this somewhere as a Scene singleton or
+  Framework.SceneRoot or something like that.
 
-* WeakDelegates for framework update delegates, so behaviors can attach to them? 
+* Define Vector3.Up as a static settable property
 
 * Be sure to call GC.SuppressFinalize() in all Dispose() methods
 
