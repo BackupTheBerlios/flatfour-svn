@@ -1,5 +1,23 @@
+Goal: get collison shapes to track movement of pose (particularly rigid bodies)
+
 * Only allow one scene. Formalize this somewhere as a Scene singleton or
   Framework.SceneRoot or something like that.
+
+* On first tick, send a StartMessage to all actors in the scene. When an actor
+  is added to a started scene, it gets the message immediately.
+
+* DynamicsSystem tracks all rigid bodies with weak references. Disposes all
+  bodies on shutdown.
+
+* Each fixed update, DynamicsSystem steps and them calls MovedMessage on all
+  active and non-sleeping bodies.
+
+* Pose.Position and Orientation should be read-only properties with a setter
+  method like MoveTo(). MovedMessage should be sent immediately on any change.
+
+* Geom must catch Moved and update accordingly.
+
+---------------------------------------------------------------------------------
 
 * Define Vector3.Up as a static settable property
 
