@@ -1,5 +1,5 @@
 #region BSD License
-/* Flat Four Editor - SceneBox.cs
+/* FlatFour.Editor - SceneBox.cs
  * Copyright (c) 2001-2006 Jason Perkins.
  * All rights reserved.
  * 
@@ -18,7 +18,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using FlatFour.Graphics;
 
-namespace Editor
+namespace FlatFour.Editor
 {
 	public partial class SceneBox : Control
 	{

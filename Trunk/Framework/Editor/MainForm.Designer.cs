@@ -1,5 +1,5 @@
 #region BSD License
-/* Flat Four Editor - MainForm.Designer.cs
+/* FlatFour.Editor - MainForm.Designer.cs
  * Copyright (c) 2001-2006 Jason Perkins.
  * All rights reserved.
  * 
@@ -13,7 +13,7 @@
  * files LICENSE.txt for more details. */
 #endregion
 
-namespace Editor
+namespace FlatFour.Editor
 {
 	public partial class MainForm
 	{
@@ -43,18 +43,51 @@ namespace Editor
 		/// </summary>
 		private void InitializeComponent()
 		{
+			this.components = new System.ComponentModel.Container();
+			this.ctlStructure = new System.Windows.Forms.TreeView();
+			this.ctlStructureMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+			this.ctlStructureMenu_NewActor = new System.Windows.Forms.ToolStripMenuItem();
+			this.ctlStructureMenu.SuspendLayout();
 			this.SuspendLayout();
+			// 
+			// ctlStructure
+			// 
+			this.ctlStructure.ContextMenuStrip = this.ctlStructureMenu;
+			this.ctlStructure.Dock = System.Windows.Forms.DockStyle.Right;
+			this.ctlStructure.Location = new System.Drawing.Point(450, 0);
+			this.ctlStructure.Name = "ctlStructure";
+			this.ctlStructure.Size = new System.Drawing.Size(121, 404);
+			this.ctlStructure.TabIndex = 0;
+			// 
+			// ctlStructureMenu
+			// 
+			this.ctlStructureMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ctlStructureMenu_NewActor});
+			this.ctlStructureMenu.Name = "ctlStructureMenu";
+			this.ctlStructureMenu.Size = new System.Drawing.Size(136, 26);
+			// 
+			// ctlStructureMenu_NewActor
+			// 
+			this.ctlStructureMenu_NewActor.Name = "ctlStructureMenu_NewActor";
+			this.ctlStructureMenu_NewActor.Size = new System.Drawing.Size(135, 22);
+			this.ctlStructureMenu_NewActor.Text = "New &Actor";
 			// 
 			// MainForm
 			// 
-			this.ClientSize = new System.Drawing.Size(292, 273);
+			this.ClientSize = new System.Drawing.Size(571, 404);
+			this.Controls.Add(this.ctlStructure);
 			this.Name = "MainForm";
 			this.Text = "Flat Four Framework Editor";
+			this.ctlStructureMenu.ResumeLayout(false);
 			this.ResumeLayout(false);
 
 		}
 
 		#endregion
+
+		private System.Windows.Forms.TreeView ctlStructure;
+		private System.Windows.Forms.ContextMenuStrip ctlStructureMenu;
+		private System.Windows.Forms.ToolStripMenuItem ctlStructureMenu_NewActor;
 
 	}
 }

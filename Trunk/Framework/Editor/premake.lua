@@ -1,5 +1,4 @@
-package.name = "Editor"
-package.target = "editor"
+package.name = "FlatFour.Editor"
 package.kind = "winexe"
 package.language = "c#"
 
@@ -7,7 +6,8 @@ package.links =
 {
 	"System.Drawing",
 	"System.Windows.Forms",
-	"FlatFour.Graphics"
+	"FlatFour.Graphics",
+	"NUnitForms"
 }
 
 package.files =

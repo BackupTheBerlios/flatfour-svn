@@ -1,5 +1,5 @@
 #region BSD License
-/* Flat Four Editor - SceneBox.Designer.cs
+/* FlatFour.Editor - SceneBox.Designer.cs
  * Copyright (c) 2001-2006 Jason Perkins.
  * All rights reserved.
  * 
@@ -13,7 +13,7 @@
  * files LICENSE.txt for more details. */
 #endregion
 
-namespace Editor
+namespace FlatFour.Editor
 {
 	public partial class SceneBox
 	{

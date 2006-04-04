@@ -1,5 +1,5 @@
 #region BSD License
-/* FlatFour.Editor - Program.cs
+/* FlatFour.Editor.Tests - Test_MainForm.cs
  * Copyright (c) 2001-2006 Jason Perkins.
  * All rights reserved.
  * 
@@ -14,18 +14,20 @@
 #endregion
 
 using System;
-using System.Windows.Forms;
+using NUnit.Framework;
+using NUnit.Extensions.Forms;
 
-namespace FlatFour.Editor
+namespace FlatFour.Editor.Tests
 {
-	static class Program
+	[TestFixture]
+	public class Test_MainForm
 	{
-		[STAThread]
-		static void Main()
+		[Test]
+		public void Test_StructureVisible()
 		{
-			Application.EnableVisualStyles();
-			Application.SetCompatibleTextRenderingDefault(false);
-			Application.Run(new MainForm());
+			new MainForm().Show();
+			TreeViewTester ctl = new TreeViewTester("ctlStructure");
+			Assert.IsTrue((bool)ctl["Visible"]);
 		}
 	}
 }
