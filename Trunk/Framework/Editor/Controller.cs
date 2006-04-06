@@ -1,5 +1,5 @@
 #region BSD License
-/* FlatFour.Editor - Program.cs
+/* FlatFour.Editor - Controller.cs
  * Copyright (c) 2001-2006 Jason Perkins.
  * All rights reserved.
  * 
@@ -14,21 +14,23 @@
 #endregion
 
 using System;
-using System.Windows.Forms;
 
 namespace FlatFour.Editor
 {
-	static class Program
+	public class Controller
 	{
-		[STAThread]
-		static void Main()
+		/// <summary>
+		///  Add a new actor to the world.
+		/// </summary>
+		/// <remarks>
+		///  This returns an Actor to the view, which is technically a business
+		///  object. I don't think it makes sense to have a specific view-only
+		///  proxy in this case though.
+		/// </remarks>
+		public virtual Actor NewActor()
 		{
-			Application.EnableVisualStyles();
-			Application.SetCompatibleTextRenderingDefault(false);
-
-			Controller controller = new Controller();
-			MainForm view = new MainForm(controller);
-			Application.Run(view);
+			Actor actor = new Actor();
+			return actor;
 		}
 	}
 }

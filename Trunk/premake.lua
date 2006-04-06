@@ -82,6 +82,8 @@ project.name = "FlatFour"
 		docommand(cmd, arg)
 		if (options["with-libs"]) then
 			os.rmdir("Framework/Libs/ode/build/custom")
+			os.remove("Bin/nmock.dll")
+			os.remove("Bin/NUnitForms.dll")
 		end
 	end
 	

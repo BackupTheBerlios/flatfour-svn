@@ -7,7 +7,8 @@ package.links =
 	"System.Drawing",
 	"System.Windows.Forms",
 	"FlatFour.Graphics",
-	"NUnitForms"
+	"NUnitForms",
+	"nmock"
 }
 
 package.files =

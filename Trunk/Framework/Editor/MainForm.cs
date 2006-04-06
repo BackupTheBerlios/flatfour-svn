@@ -19,10 +19,14 @@ using System.Windows.Forms;
 
 namespace FlatFour.Editor
 {
-    public partial class MainForm : Form
+	public partial class MainForm : Form
 	{
-		public MainForm()
+		private Controller _controller;
+
+		public MainForm(Controller controller)
 		{
+			_controller = controller;
+
 			InitializeComponent();
 
 			/* Add a view into the scene */
