@@ -24,42 +24,20 @@ namespace FlatFour.Editor
 	/// </summary>
 	public class StructureView : TreeView
 	{
-		private Controller _controller;
-
-		public StructureView(Controller controller)
+		public StructureView()
 		{
-			_controller = controller;
-
-			this.LabelEdit = true;
-
-			CreateContextMenu();
-
 			this.MouseDown += new MouseEventHandler(StructureView_MouseDown);
-			_menu_NewActor.Click += new EventHandler(StructureView_NewActor);
 		}
 
-		#region Context Menu
-
-		private ContextMenuStrip _menu;
-		private ToolStripMenuItem _menu_NewActor;
-
-		private void CreateContextMenu()
+		public void NewActor(Actor actor)
 		{
-			_menu_NewActor = new ToolStripMenuItem();
-			_menu_NewActor.Name = "StructureViewMenu_NewActor";
-			_menu_NewActor.Text = "New &Actor";
-
-			_menu = new ContextMenuStrip();
-			_menu.Items.AddRange(new ToolStripItem[] { 
-				_menu_NewActor });
-			_menu.Name = "StructureViewMenu";
-			this.ContextMenuStrip = _menu;
+			TreeNode node = new TreeNode("Actor");
+			this.Nodes.Add(node);
+			this.SelectedNode = node;
+			node.BeginEdit();
 		}
 
-		#endregion
-
-
-		internal void StructureView_MouseDown(object sender, MouseEventArgs e)
+		private void StructureView_MouseDown(object sender, MouseEventArgs e)
 		{
 			/* I want right-click to also select the node, so the context
 			 * menu callback will know which item to operate on */
@@ -67,21 +45,6 @@ namespace FlatFour.Editor
 			{
 				this.SelectedNode = this.GetNodeAt(e.X, e.Y);
 			}
-		}
-
-
-		internal void StructureView_NewActor(object sender, EventArgs e)
-		{
-			Actor actor = _controller.NewActor();
-
-			/* Create a new node for the actor and add it to the tree */
-			TreeNode node = new TreeNode("Actor");
-			this.Nodes.Add(node);
-
-			/* Select the newly added node and toggle editing so the
-			 * user can enter a real name for it */
-			this.SelectedNode = node;
-			node.BeginEdit();
 		}
 	}
 }

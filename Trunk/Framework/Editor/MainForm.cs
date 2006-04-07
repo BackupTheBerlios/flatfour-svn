@@ -37,9 +37,15 @@ namespace FlatFour.Editor
 			ctlSplitContainer1.Panel1.Controls.Add(scene);
 		}
 
-		internal void NewActor_Click(object sender, EventArgs e)
+		public StructureView StructureView
 		{
-			throw new NotImplementedException("NewActor_Click");
+			get { return ctlStructureView; }
+		}
+
+		public void NewActor_Click(object sender, EventArgs e)
+		{
+			Actor actor = _controller.NewActor();
+			ctlStructureView.NewActor(actor);
 		}
 	}
 }

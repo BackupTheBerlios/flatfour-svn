@@ -43,7 +43,7 @@ namespace FlatFour.Editor
 		{
 			this.components = new System.ComponentModel.Container();
 			this.ctlSplitContainer1 = new System.Windows.Forms.SplitContainer();
-			this.ctlStructureTreeView = new System.Windows.Forms.TreeView();
+			this.ctlStructureView = new FlatFour.Editor.StructureView();
 			this.ctlStructureMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
 			this.newActorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.ctlSplitContainer1.Panel2.SuspendLayout();
@@ -59,32 +59,32 @@ namespace FlatFour.Editor
 			// 
 			// ctlSplitContainer1.Panel2
 			// 
-			this.ctlSplitContainer1.Panel2.Controls.Add(this.ctlStructureTreeView);
+			this.ctlSplitContainer1.Panel2.Controls.Add(this.ctlStructureView);
 			this.ctlSplitContainer1.Size = new System.Drawing.Size(571, 404);
 			this.ctlSplitContainer1.SplitterDistance = 351;
 			this.ctlSplitContainer1.TabIndex = 0;
 			// 
-			// ctlStructureTreeView
+			// ctlStructureView
 			// 
-			this.ctlStructureTreeView.ContextMenuStrip = this.ctlStructureMenu;
-			this.ctlStructureTreeView.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.ctlStructureTreeView.LabelEdit = true;
-			this.ctlStructureTreeView.Location = new System.Drawing.Point(0, 0);
-			this.ctlStructureTreeView.Name = "ctlStructureTreeView";
-			this.ctlStructureTreeView.Size = new System.Drawing.Size(216, 404);
-			this.ctlStructureTreeView.TabIndex = 0;
+			this.ctlStructureView.ContextMenuStrip = this.ctlStructureMenu;
+			this.ctlStructureView.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.ctlStructureView.LabelEdit = true;
+			this.ctlStructureView.Location = new System.Drawing.Point(0, 0);
+			this.ctlStructureView.Name = "ctlStructureView";
+			this.ctlStructureView.Size = new System.Drawing.Size(216, 404);
+			this.ctlStructureView.TabIndex = 0;
 			// 
 			// ctlStructureMenu
 			// 
 			this.ctlStructureMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.newActorToolStripMenuItem});
 			this.ctlStructureMenu.Name = "ctlStructureMenu";
-			this.ctlStructureMenu.Size = new System.Drawing.Size(153, 48);
+			this.ctlStructureMenu.Size = new System.Drawing.Size(136, 26);
 			// 
 			// newActorToolStripMenuItem
 			// 
 			this.newActorToolStripMenuItem.Name = "newActorToolStripMenuItem";
-			this.newActorToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.newActorToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
 			this.newActorToolStripMenuItem.Text = "New &Actor";
 			this.newActorToolStripMenuItem.Click += new System.EventHandler(this.NewActor_Click);
 			// 
@@ -104,7 +104,7 @@ namespace FlatFour.Editor
 		#endregion
 
 		private System.Windows.Forms.SplitContainer ctlSplitContainer1;
-		private System.Windows.Forms.TreeView ctlStructureTreeView;
+		private FlatFour.Editor.StructureView ctlStructureView;
 		private System.Windows.Forms.ContextMenuStrip ctlStructureMenu;
 		private System.Windows.Forms.ToolStripMenuItem newActorToolStripMenuItem;
 	}

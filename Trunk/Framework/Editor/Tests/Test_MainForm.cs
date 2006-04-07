@@ -1,5 +1,5 @@
 #region BSD License
-/* FlatFour.Editor.Tests - Test_StructureView.cs
+/* FlatFour.Editor.Tests - Test_MainForm.cs
  * Copyright (c) 2001-2006 Jason Perkins.
  * All rights reserved.
  * 
@@ -22,7 +22,7 @@ using NMock;
 namespace FlatFour.Editor.Tests
 {
 	[TestFixture]
-	public class Test_StructureView : NUnitFormTest
+	public class Test_MainForm : NUnitFormTest
 	{
 		DynamicMock _controller;
 		MainForm _form;
@@ -32,39 +32,6 @@ namespace FlatFour.Editor.Tests
 			_controller = new DynamicMock(typeof(Controller));
 			_form = new MainForm((Controller)_controller.MockInstance);
 			_form.Show();
-		}
-
-
-		[Test]
-		public void ControlIsVisible()
-		{
-			Assert.IsTrue(_form.StructureView.Visible);
-		}
-
-
-		[Test]
-		public void HasContextMenu()
-		{
-			ContextMenuStrip menu = _form.StructureView.ContextMenuStrip;
-			Assert.IsNotNull(menu);
-			Assert.AreEqual("ctlStructureMenu", menu.Name);
-		}
-
-
-		[Test]
-		public void NewActorAddsNode()
-		{
-			int before = _form.StructureView.Nodes.Count;
-			_form.StructureView.NewActor(new Actor());
-			Assert.AreEqual(before + 1, _form.StructureView.Nodes.Count);
-		}
-
-		[Test]
-		public void NewActorNodeIsEditable()
-		{
-			_form.StructureView.NewActor(new Actor());
-			TreeNode node = _form.StructureView.SelectedNode;
-			Assert.IsTrue(node.IsEditing);
 		}
 	}
 }
