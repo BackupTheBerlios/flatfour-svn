@@ -1,5 +1,5 @@
 #region BSD License
-/* FlatFour.Editor.Tests - Test_StructurePane.cs
+/* FlatFour.Editor.Tests - Test_SceneView.cs
  * Copyright (c) 2001-2006 Jason Perkins.
  * All rights reserved.
  * 
@@ -22,26 +22,24 @@ using NMock;
 namespace FlatFour.Editor.Tests
 {
 	[TestFixture]
-	public class Test_StructurePane : NUnitFormTest
+	public class Test_SceneView : NUnitFormTest
 	{
 		DynamicMock _controller;
 		MainForm _form;
+		ControlTester _ctrl;
 
 		public override void Setup()
 		{
 			_controller = new DynamicMock(typeof(Controller));
 			_form = new MainForm((Controller)_controller.MockInstance);
 			_form.Show();
+			_ctrl = new ControlTester("ctlSceneView");
 		}
 
 		[Test]
-		public void Test_NewActorCallsController()
+		public void ControlIsVisible()
 		{
-#if OBSOLETE
-			_controller.ExpectAndReturn("NewActor", new Actor(), null);
-			_form.ctlStructureMenu_NewActor_Click(null, EventArgs.Empty);
-			_controller.Verify();
-#endif
+			Assert.IsTrue((bool)_ctrl["Visible"]);
 		}
 	}
 }

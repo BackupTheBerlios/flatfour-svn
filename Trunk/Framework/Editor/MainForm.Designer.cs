@@ -29,9 +29,7 @@ namespace FlatFour.Editor
 		protected override void Dispose(bool disposing)
 		{
 			if (disposing && (components != null))
-			{
 				components.Dispose();
-			}
 			base.Dispose(disposing);
 		}
 
@@ -44,30 +42,71 @@ namespace FlatFour.Editor
 		private void InitializeComponent()
 		{
 			this.components = new System.ComponentModel.Container();
-			this.ctlStructure = new FlatFour.Editor.StructureView();
+			this.ctlSplitContainer1 = new System.Windows.Forms.SplitContainer();
+			this.ctlStructureTreeView = new System.Windows.Forms.TreeView();
+			this.ctlStructureMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+			this.newActorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.ctlSplitContainer1.Panel2.SuspendLayout();
+			this.ctlSplitContainer1.SuspendLayout();
+			this.ctlStructureMenu.SuspendLayout();
 			this.SuspendLayout();
 			// 
-			// ctlStructure
-			//
-			this.ctlStructure.Dock = System.Windows.Forms.DockStyle.Right;
-			this.ctlStructure.Location = new System.Drawing.Point(450, 0);
-			this.ctlStructure.Name = "ctlStructure";
-			this.ctlStructure.Size = new System.Drawing.Size(121, 404);
-			this.ctlStructure.TabIndex = 0;
+			// ctlSplitContainer1
+			// 
+			this.ctlSplitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.ctlSplitContainer1.Location = new System.Drawing.Point(0, 0);
+			this.ctlSplitContainer1.Name = "ctlSplitContainer1";
+			// 
+			// ctlSplitContainer1.Panel2
+			// 
+			this.ctlSplitContainer1.Panel2.Controls.Add(this.ctlStructureTreeView);
+			this.ctlSplitContainer1.Size = new System.Drawing.Size(571, 404);
+			this.ctlSplitContainer1.SplitterDistance = 351;
+			this.ctlSplitContainer1.TabIndex = 0;
+			// 
+			// ctlStructureTreeView
+			// 
+			this.ctlStructureTreeView.ContextMenuStrip = this.ctlStructureMenu;
+			this.ctlStructureTreeView.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.ctlStructureTreeView.LabelEdit = true;
+			this.ctlStructureTreeView.Location = new System.Drawing.Point(0, 0);
+			this.ctlStructureTreeView.Name = "ctlStructureTreeView";
+			this.ctlStructureTreeView.Size = new System.Drawing.Size(216, 404);
+			this.ctlStructureTreeView.TabIndex = 0;
+			// 
+			// ctlStructureMenu
+			// 
+			this.ctlStructureMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.newActorToolStripMenuItem});
+			this.ctlStructureMenu.Name = "ctlStructureMenu";
+			this.ctlStructureMenu.Size = new System.Drawing.Size(153, 48);
+			// 
+			// newActorToolStripMenuItem
+			// 
+			this.newActorToolStripMenuItem.Name = "newActorToolStripMenuItem";
+			this.newActorToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.newActorToolStripMenuItem.Text = "New &Actor";
+			this.newActorToolStripMenuItem.Click += new System.EventHandler(this.NewActor_Click);
 			// 
 			// MainForm
 			// 
 			this.ClientSize = new System.Drawing.Size(571, 404);
-			this.Controls.Add(this.ctlStructure);
+			this.Controls.Add(this.ctlSplitContainer1);
 			this.Name = "MainForm";
 			this.Text = "Flat Four Framework Editor";
+			this.ctlSplitContainer1.Panel2.ResumeLayout(false);
+			this.ctlSplitContainer1.ResumeLayout(false);
+			this.ctlStructureMenu.ResumeLayout(false);
 			this.ResumeLayout(false);
 
 		}
 
 		#endregion
 
-		private FlatFour.Editor.StructureView ctlStructure;
+		private System.Windows.Forms.SplitContainer ctlSplitContainer1;
+		private System.Windows.Forms.TreeView ctlStructureTreeView;
+		private System.Windows.Forms.ContextMenuStrip ctlStructureMenu;
+		private System.Windows.Forms.ToolStripMenuItem newActorToolStripMenuItem;
 	}
 }
 

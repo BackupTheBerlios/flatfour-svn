@@ -1,5 +1,5 @@
 #region BSD License
-/* FlatFour.Editor - SceneBox.cs
+/* FlatFour.Editor - SceneView.cs
  * Copyright (c) 2001-2006 Jason Perkins.
  * All rights reserved.
  * 
@@ -20,14 +20,12 @@ using FlatFour.Graphics;
 
 namespace FlatFour.Editor
 {
-	public partial class SceneBox : Control
+	public partial class SceneView : Control
 	{
 		private GraphicsWindow _gfx;
 
-		public SceneBox()
+		public SceneView()
 		{
-			InitializeComponent();
-
 			System.Type xplatui = System.Type.GetType("System.Windows.Forms.XplatUIX11, System.Windows.Forms");
 			if (xplatui != null)
 			{
@@ -40,10 +38,10 @@ namespace FlatFour.Editor
 			}
 			_gfx.Camera.BackgroundColor = System.Drawing.Color.SkyBlue;
 
-			this.Resize += new System.EventHandler(SceneBox_Resize);
+			this.Resize += new System.EventHandler(SceneView_Resize);
 		}
 
-		private void SceneBox_Resize(object sender, EventArgs e)
+		private void SceneView_Resize(object sender, EventArgs e)
 		{
 			_gfx.Size = this.ClientSize;
 		}

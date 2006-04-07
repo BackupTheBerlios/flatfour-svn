@@ -29,14 +29,17 @@ namespace FlatFour.Editor
 
 			InitializeComponent();
 
-			/* Add a view into the scene */
-			SceneBox scene = new SceneBox();
-			scene.Name = "scene";
-			scene.Dock = System.Windows.Forms.DockStyle.Fill;
-			scene.Location = new System.Drawing.Point(0, 0);
-			scene.TabIndex = 0;
-			scene.TabStop = true;
-			Controls.Add(scene);
+			/* The SceneView control is not designer-friendly right now, so it
+			 * needs to be added to the form manually */
+			SceneView scene = new SceneView();
+			scene.Name = "ctlSceneView";
+			scene.Dock = DockStyle.Fill;
+			ctlSplitContainer1.Panel1.Controls.Add(scene);
+		}
+
+		internal void NewActor_Click(object sender, EventArgs e)
+		{
+			throw new NotImplementedException("NewActor_Click");
 		}
 	}
 }

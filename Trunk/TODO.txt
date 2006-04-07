@@ -17,6 +17,9 @@ Goal: get collison shapes to track movement of pose (particularly rigid bodies)
 
 * Geom must catch Moved and update accordingly.
 
+
+---------------------------------------------------------------------------------
+ MISCELLANY
 ---------------------------------------------------------------------------------
 
 * Define Vector3.Up as a static settable property

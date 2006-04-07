@@ -1,5 +1,5 @@
 #region BSD License
-/* FlatFour.Editor.Tests - Test_MainForm.cs
+/* FlatFour.Editor.Tests - Test_StructureView.cs
  * Copyright (c) 2001-2006 Jason Perkins.
  * All rights reserved.
  * 
@@ -17,31 +17,48 @@ using System;
 using System.Windows.Forms;
 using NUnit.Framework;
 using NUnit.Extensions.Forms;
+using NMock;
 
 namespace FlatFour.Editor.Tests
 {
 	[TestFixture]
-	public class Test_MainForm : NUnitFormTest
+	public class Test_StructureView : NUnitFormTest
 	{
+		DynamicMock _controller;
+		MainForm _form;
+		TreeViewTester _ctrl;
+
 		public override void Setup()
 		{
-			new MainForm(new Controller()).Show();
+			_controller = new DynamicMock(typeof(Controller));
+			_form = new MainForm((Controller)_controller.MockInstance);
+			_form.Show();
+			_ctrl = new TreeViewTester("ctlStructureTreeView");
 		}
 
-		[Test]
-		public void Test_StructureVisible()
-		{
-			TreeViewTester ctl = new TreeViewTester("ctlStructure");
-			Assert.IsTrue((bool)ctl["Visible"]);
-		}
 
 		[Test]
-		public void Test_StructureHasContextMenu()
+		public void ControlIsVisible()
 		{
-			TreeViewTester ctl = new TreeViewTester("ctlStructure");
-			ContextMenuStrip menu = (ContextMenuStrip)ctl["ContextMenuStrip"];
+			Assert.IsTrue((bool)_ctrl["Visible"]);
+		}
+
+
+		[Test]
+		public void Test_HasContextMenu()
+		{
+			ContextMenuStrip menu = (ContextMenuStrip)_ctrl["ContextMenuStrip"];
 			Assert.IsNotNull(menu);
 			Assert.AreEqual("ctlStructureMenu", menu.Name);
+		}
+
+
+		[Test]
+		public void Test_NewActorCallsController()
+		{
+			_controller.ExpectAndReturn("NewActor", new Actor(), null);
+			// _form.Structure.StructureView_NewActor(null, EventArgs.Empty);
+			_controller.Verify();
 		}
 	}
 }

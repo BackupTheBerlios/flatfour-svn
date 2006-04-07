@@ -18,21 +18,30 @@ using System.Windows.Forms;
 
 namespace FlatFour.Editor
 {
-	public partial class StructureView : TreeView
+	/// <summary>
+	///  The StructureView control is the tree view containing the list of
+	///  actors and behaviors contained in the scene.
+	/// </summary>
+	public class StructureView : TreeView
 	{
-		private ContextMenuStrip _menu;
-		private ToolStripMenuItem _menu_NewActor;
+		private Controller _controller;
 
-		public StructureView()
+		public StructureView(Controller controller)
 		{
-			InitializeComponent();
-			CreateContextMenu();
+			_controller = controller;
 
 			this.LabelEdit = true;
+
+			CreateContextMenu();
 
 			this.MouseDown += new MouseEventHandler(StructureView_MouseDown);
 			_menu_NewActor.Click += new EventHandler(StructureView_NewActor);
 		}
+
+		#region Context Menu
+
+		private ContextMenuStrip _menu;
+		private ToolStripMenuItem _menu_NewActor;
 
 		private void CreateContextMenu()
 		{
@@ -47,7 +56,10 @@ namespace FlatFour.Editor
 			this.ContextMenuStrip = _menu;
 		}
 
-		private void StructureView_MouseDown(object sender, MouseEventArgs e)
+		#endregion
+
+
+		internal void StructureView_MouseDown(object sender, MouseEventArgs e)
 		{
 			/* I want right-click to also select the node, so the context
 			 * menu callback will know which item to operate on */
@@ -57,24 +69,17 @@ namespace FlatFour.Editor
 			}
 		}
 
-		private void StructureView_NewActor(object sender, EventArgs e)
+
+		internal void StructureView_NewActor(object sender, EventArgs e)
 		{
-			/* Create a new node for the actor */
-			TreeNode node = new TreeNode("Hi there!");
+			Actor actor = _controller.NewActor();
 
-			/* Add it to the tree */
-			TreeNode selected = this.SelectedNode;
-			if (selected != null)
-			{
-				selected.Nodes.Add(node);
-				selected.Expand();
-			}
-			else
-			{
-				this.Nodes.Add(node);
-			}
+			/* Create a new node for the actor and add it to the tree */
+			TreeNode node = new TreeNode("Actor");
+			this.Nodes.Add(node);
 
-			/* Select the newly added node */
+			/* Select the newly added node and toggle editing so the
+			 * user can enter a real name for it */
 			this.SelectedNode = node;
 			node.BeginEdit();
 		}

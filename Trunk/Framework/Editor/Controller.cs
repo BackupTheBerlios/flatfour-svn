@@ -17,6 +17,13 @@ using System;
 
 namespace FlatFour.Editor
 {
+	/// <summary>
+	///  The controller part of my MVC framework.
+	/// </summary>
+	/// <remarks>
+	///  This is shaping up to a really thin layer over the framework classes.
+	///  I'm not sure if it will actually be particular useful or not.
+	/// </remarks>
 	public class Controller
 	{
 		/// <summary>
