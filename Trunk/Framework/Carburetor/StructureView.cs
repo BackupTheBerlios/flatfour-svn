@@ -1,5 +1,5 @@
 #region BSD License
-/* FlatFour.Editor - StructureView.cs
+/* Carburetor - StructureView.cs
  * Copyright (c) 2001-2006 Jason Perkins.
  * All rights reserved.
  * 
@@ -15,8 +15,9 @@
 
 using System;
 using System.Windows.Forms;
+using FlatFour;
 
-namespace FlatFour.Editor
+namespace Carburetor
 {
 	/// <summary>
 	///  The StructureView control is the tree view containing the list of

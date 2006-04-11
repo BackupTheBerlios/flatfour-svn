@@ -1,5 +1,5 @@
 #region BSD License
-/* FlatFour.Editor - Controller.cs
+/* Carburetor - Controller.cs
  * Copyright (c) 2001-2006 Jason Perkins.
  * All rights reserved.
  * 
@@ -14,8 +14,9 @@
 #endregion
 
 using System;
+using FlatFour;
 
-namespace FlatFour.Editor
+namespace Carburetor
 {
 	/// <summary>
 	///  The controller part of my MVC framework.

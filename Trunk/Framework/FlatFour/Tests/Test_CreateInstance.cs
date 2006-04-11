@@ -34,8 +34,14 @@ namespace FlatFour.Tests
 			object instance = Framework.CreateInstance("FlatFour.Graphics.Camera");
 			Assert.IsNotNull(instance, "Object not instantiated");
 			Assert.AreEqual("FlatFour.Graphics.Camera", instance.GetType().ToString());
+		}
 
-			instance = Framework.CreateInstance("FlatFour.Graphics.Camera");
+		[Test]
+		public void FindAssemblyWhenSubsetOfNamespace()
+		{
+			object instance = Framework.CreateInstance("FlatFour.Tests.Test_CreateInstance");
+			Assert.IsNotNull(instance, "Object not instantiated");
+			Assert.AreEqual("FlatFour.Tests.Test_CreateInstance", instance.GetType().ToString());
 		}
 
 		[Test]

@@ -1,5 +1,5 @@
 #region BSD License
-/* FlatFour.Editor.Tests - Test_SceneView.cs
+/* Carburetor.Tests - Test_Program.cs
  * Copyright (c) 2001-2006 Jason Perkins.
  * All rights reserved.
  * 
@@ -14,32 +14,36 @@
 #endregion
 
 using System;
-using System.Windows.Forms;
 using NUnit.Framework;
-using NUnit.Extensions.Forms;
-using NMock;
+using FlatFour;
+using FlatFour.Editing;
 
-namespace FlatFour.Editor.Tests
+namespace Carburetor.Tests
 {
 	[TestFixture]
-	public class Test_SceneView : NUnitFormTest
+	public class Test_Program
 	{
-		DynamicMock _controller;
-		MainForm _form;
-		ControlTester _ctrl;
-
-		public override void Setup()
+		[Test]
+		public void UISetAndCleared()
 		{
-			_controller = new DynamicMock(typeof(Controller));
-			_form = new MainForm((Controller)_controller.MockInstance);
-			_form.Show();
-			_ctrl = new ControlTester("ctlSceneView");
+			using (Program program = new Program())
+				Assert.IsNotNull(Editor.UI);
+			Assert.IsNull(Editor.UI);
 		}
 
 		[Test]
-		public void ControlIsVisible()
+		public void PluginsSetAndCleared()
 		{
-			Assert.IsTrue((bool)_ctrl["Visible"]);
+			using (Program program = new Program())
+				Assert.IsNotNull(Editor.Plugins);
+			Assert.IsNull(Editor.Plugins);
+		}
+
+		[Test]
+		public void PluginsLoadedAndDisposed()
+		{
+			using (Program program = new Program())
+				Assert.IsTrue(Editor.Plugins.Count > 0);
 		}
 	}
 }

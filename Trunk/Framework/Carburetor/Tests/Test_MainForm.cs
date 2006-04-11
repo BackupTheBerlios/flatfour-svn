@@ -1,5 +1,5 @@
 #region BSD License
-/* FlatFour.Editor - Program.cs
+/* Carburetor.Tests - Test_MainForm.cs
  * Copyright (c) 2001-2006 Jason Perkins.
  * All rights reserved.
  * 
@@ -15,20 +15,21 @@
 
 using System;
 using System.Windows.Forms;
+using NUnit.Framework;
+using NUnit.Extensions.Forms;
+using NMock;
 
-namespace FlatFour.Editor
+namespace Carburetor.Tests
 {
-	static class Program
+	[TestFixture]
+	public class Test_MainForm : NUnitFormTest
 	{
-		[STAThread]
-		static void Main()
-		{
-			Application.EnableVisualStyles();
-			Application.SetCompatibleTextRenderingDefault(false);
+		MainForm _form;
 
-			Controller controller = new Controller();
-			MainForm view = new MainForm(controller);
-			Application.Run(view);
+		public override void Setup()
+		{
+			_form = new MainForm();
+			_form.Show();
 		}
 	}
 }

@@ -1,5 +1,5 @@
 #region BSD License
-/* FlatFour.Editor - MainForm.cs
+/* Carburetor - MainForm.cs
  * Copyright (c) 2001-2006 Jason Perkins.
  * All rights reserved.
  * 
@@ -16,36 +16,33 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
+using FlatFour.Editing;
 
-namespace FlatFour.Editor
+namespace Carburetor
 {
-	public partial class MainForm : Form
+	public partial class MainForm : Form, IEditorUI
 	{
-		private Controller _controller;
-
-		public MainForm(Controller controller)
+		public MainForm()
 		{
-			_controller = controller;
-
 			InitializeComponent();
 
 			/* The SceneView control is not designer-friendly right now, so it
 			 * needs to be added to the form manually */
+#if OBSOLETE
 			SceneView scene = new SceneView();
 			scene.Name = "ctlSceneView";
 			scene.Dock = DockStyle.Fill;
 			ctlSplitContainer1.Panel1.Controls.Add(scene);
+#endif
 		}
 
-		public StructureView StructureView
-		{
-			get { return ctlStructureView; }
-		}
 
-		public void NewActor_Click(object sender, EventArgs e)
+		/// <summary>
+		///  Called on "File...Exit", exits the application.
+		/// </summary>
+		private void Exit_Click(object sender, EventArgs e)
 		{
-			Actor actor = _controller.NewActor();
-			ctlStructureView.NewActor(actor);
+			this.Close();
 		}
 	}
 }

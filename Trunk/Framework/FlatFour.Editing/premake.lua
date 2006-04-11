@@ -1,11 +1,10 @@
-package.name = "FlatFour"
+package.name = "FlatFour.Editing"
 package.kind = "dll"
 package.language = "c#"
 
 package.links = 
 {
-	"System.Drawing",
-	"System.Xml" 
+	"System.Configuration"
 }
 
 package.files = 

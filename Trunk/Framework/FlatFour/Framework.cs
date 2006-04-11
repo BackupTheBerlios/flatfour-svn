@@ -19,16 +19,22 @@ using System.Reflection;
 
 namespace FlatFour
 {
+	/// <summary>
+	///  The Framework class acts as a static singleton providing access to all
+	///  of the components and subsystems that make up the current environment.
+	/// </summary>
 	public static class Framework
 	{
+		/* Subsystem management */
 		private static bool _connected;
+		private static EventHandler _startup;
+		private static EventHandler _shutdown;
+
+		/* Time management */
 		private static Stopwatch _clock;
 		private static double _fixedTotal;
 		private static float _fixedInterval;
 		private static float _maxInterval;
-	
-		private static EventHandler _startup;
-		private static EventHandler _shutdown;
 		private static EventHandler _fixedUpdate;
 		private static EventHandler _frameUpdate;
 
@@ -220,6 +226,7 @@ namespace FlatFour
 
 		#endregion
 
+
 		public static object CreateInstance(string typeName)
 		{
 			/* Split into namespace and type names */
@@ -231,12 +238,22 @@ namespace FlatFour
 			return CreateInstance(assembly, typeName);
 		}
 
+
 		private static object CreateInstance(string assemblyName, string typeName)
 		{
-			Assembly assembly = Assembly.LoadFrom(assemblyName + ".dll");
-			Type type = assembly.GetType(typeName);
-			if (type != null)
-				return Activator.CreateInstance(type);
+			try
+			{
+				Assembly assembly = Assembly.Load(assemblyName);
+				Type type = assembly.GetType(typeName);
+				if (type != null)
+					return Activator.CreateInstance(type);
+			}
+			catch (System.IO.FileNotFoundException ex)
+			{
+				/* See if I can break this assembly name down further */
+				if (assemblyName.IndexOf('.') < 0)
+					throw ex;
+			}
 
 			/* Not found...trim off last bit of namespace and try again */
 			int split = assemblyName.LastIndexOf('.');

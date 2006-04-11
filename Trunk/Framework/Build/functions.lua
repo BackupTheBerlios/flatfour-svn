@@ -16,7 +16,6 @@ function configure_package()
 	-- Add the standard Framework libraries
 	table.insert(package.links, "System")
 	if (package.name ~= "FlatFour") then
-		table.insert(package.links, "System")
 		table.insert(package.links, "FlatFour")
 	end
 	

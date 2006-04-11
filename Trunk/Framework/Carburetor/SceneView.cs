@@ -1,5 +1,5 @@
 #region BSD License
-/* FlatFour.Editor - SceneView.cs
+/* Carburetor - SceneView.cs
  * Copyright (c) 2001-2006 Jason Perkins.
  * All rights reserved.
  * 
@@ -18,7 +18,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using FlatFour.Graphics;
 
-namespace FlatFour.Editor
+namespace Carburetor
 {
 	public partial class SceneView : Control
 	{

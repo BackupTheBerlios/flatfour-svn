@@ -34,7 +34,7 @@ project.name = "FlatFour"
 -- Packages
 
 	if (not options["no-editor"]) then
-		dopackage("Framework/Editor")
+		dopackage("Framework/Carburetor")
 	end
 		
 	if (not options["no-bootstrap"]) then
@@ -57,6 +57,7 @@ project.name = "FlatFour"
 	end
 	
 	dopackage("Framework/FlatFour")
+	dopackage("Framework/FlatFour.Editing")
 
 	if (not options["no-collision"]) then
 		dopackage("Framework/FlatFour.Collision")

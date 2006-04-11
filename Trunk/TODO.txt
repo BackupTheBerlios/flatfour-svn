@@ -1,3 +1,4 @@
+
 Goal: get collison shapes to track movement of pose (particularly rigid bodies)
 
 * Only allow one scene. Formalize this somewhere as a Scene singleton or
@@ -22,6 +23,8 @@ Goal: get collison shapes to track movement of pose (particularly rigid bodies)
  MISCELLANY
 ---------------------------------------------------------------------------------
 
+* Phase out use of NUnit.Forms in favor of direct access to objects?
+
 * Define Vector3.Up as a static settable property
 
 * Be sure to call GC.SuppressFinalize() in all Dispose() methods
@@ -35,6 +38,9 @@ Goal: get collison shapes to track movement of pose (particularly rigid bodies)
 * Refactor master list of platform windows to match master list of render targets
 
 * Internationalize the editor
+
+* Dispatcher should use weak references to targets, if possible. Might be 
+  tough to pull off.
 
 * Add AssemblyInfo.cs with CLSCompliant flag to all assemblies, except maybe
   the editor (also add tickler to packaging to update versions)

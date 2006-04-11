@@ -1,5 +1,5 @@
 #region BSD License
-/* FlatFour.Editor.Tests - Test_MainForm.cs
+/* FlatFour.Editing - IEditorUI.cs
  * Copyright (c) 2001-2006 Jason Perkins.
  * All rights reserved.
  * 
@@ -14,24 +14,10 @@
 #endregion
 
 using System;
-using System.Windows.Forms;
-using NUnit.Framework;
-using NUnit.Extensions.Forms;
-using NMock;
 
-namespace FlatFour.Editor.Tests
+namespace FlatFour.Editing
 {
-	[TestFixture]
-	public class Test_MainForm : NUnitFormTest
+	public interface IEditorUI : IDisposable
 	{
-		DynamicMock _controller;
-		MainForm _form;
-
-		public override void Setup()
-		{
-			_controller = new DynamicMock(typeof(Controller));
-			_form = new MainForm((Controller)_controller.MockInstance);
-			_form.Show();
-		}
 	}
 }
